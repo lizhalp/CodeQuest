@@ -9,15 +9,13 @@ app.get('/', (req, res) => {
   res.status(200).send('<html><body><h1>Hello</h1></body></html>');
 })
 
-const { topicsIndex, 
-        topicsShow, 
-        topicsCreate, 
-        topicsUpdate, 
-        topicsDelete } = require('./app/topics/topicsController');
-app.get('/topics', topicsIndex);
-app.get('/topics/:topicId', topicsShow);
-app.post('/topics', topicsCreate);
-app.patch('/topics/:topicId', topicsUpdate);
-app.delete('/tppics/:topicId', topicsDelete);
+const { TopicsController } = require('./app/topics/topicsController');
+const topics = new TopicsController();
+
+app.get('/topics', topics.index);
+app.get('/topics/:topicId', topics.show);
+app.post('/topics', topics.create);
+app.patch('/topics/:topicId', topics.update);
+app.delete('/tppics/:topicId', topics.delete);
 
 exports.handler = serverless(app);
