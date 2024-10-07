@@ -1,4 +1,4 @@
-const { TopicsService } = require('./topicsService');
+const { TopicsService } = require('../app/topics/topicsService.js');
 
 test('Retrieving all topics', () => {
     const topicsService = new TopicsService();

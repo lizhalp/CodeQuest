@@ -2,11 +2,15 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.585.0",
     "@aws-sdk/lib-dynamodb": "^3.585.0",
     "dynamoose": "^4.0.1",
     "express": "^4.19.2",
+    "jest": "^29.7.0",
     "joi": "^17.13.3",
     "serverless-http": "^3.2.0"
   }

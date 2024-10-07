@@ -13,7 +13,7 @@ const { topicsIndex,
         topicsShow, 
         topicsCreate, 
         topicsUpdate, 
-        topicsDelete } = require('./topics/topicsController');
+        topicsDelete } = require('./app/topics/topicsController');
 app.get('/topics', topicsIndex);
 app.get('/topics/:topicId', topicsShow);
 app.post('/topics', topicsCreate);
