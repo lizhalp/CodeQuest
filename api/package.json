@@ -5,7 +5,9 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.585.0",
     "@aws-sdk/lib-dynamodb": "^3.585.0",
+    "dynamoose": "^4.0.1",
     "express": "^4.19.2",
+    "joi": "^17.13.3",
     "serverless-http": "^3.2.0"
   }
 }

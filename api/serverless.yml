@@ -8,11 +8,13 @@ service: api
 stages:
   default:
     params:
-      tableName: "users-table-${sls:stage}"
+      usersTableName: "users-table-${sls:stage}"
+      topicsTableName: "topics-table-${sls:stage}"
 
 provider:
   name: aws
-  runtime: nodejs22.x
+  runtime: nodejs20.x
+  region: us-east-1
   iam:
     role:
       statements:
@@ -26,8 +28,11 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [UsersTable, Arn]
+            - Fn::GetAtt: [TopicsTable, Arn]
+          
   environment:
-    USERS_TABLE: ${param:tableName}
+    USERS_TABLE: ${param:usersTableName}
+    TOPICS_TABLE: ${param:topicsTableName}
 
 functions:
   api:
@@ -47,4 +52,16 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName: ${param:tableName}
+        TableName: ${param:usersTableName}
+
+    TopicsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: topicId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: topicId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${param:topicsTableName}

@@ -1,24 +1,19 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-
-const {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-} = require("@aws-sdk/lib-dynamodb");
-
 const express = require("express");
 const serverless = require("serverless-http");
 
 const app = express();
-
-const USERS_TABLE = process.env.USERS_TABLE;
-const client = new DynamoDBClient();
-const docClient = DynamoDBDocumentClient.from(client);
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
   res.status(200).send('<html><body><h1>Hello</h1></body></html>');
 })
+
+const { topicsIndex, topicsShow, topicsCreate, topicsUpdate, topicsDelete } = require('./topics/topicsController');
+app.get('/topics', topicsIndex);
+app.get('/topics/:topicId', topicsShow);
+app.post('/topics', topicsCreate);
+app.patch('/topics/:topicId', topicsUpdate);
+app.delete('/tppics/:topicId', topicsDelete);
 
 exports.handler = serverless(app);
