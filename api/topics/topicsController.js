@@ -20,7 +20,6 @@ module.exports.topicsCreate = async (req, res) => {
         await createTopic(topic);
         res.status(201).send(topic);
     } catch (err) {
-        console.error(err);
         res.status(500).send('Internal Server Error');
     }
 };

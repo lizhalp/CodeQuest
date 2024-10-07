@@ -7,8 +7,6 @@ const TOPICS_TABLE = process.env.TOPICS_TABLE;
 const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
-// Returns a promise that resolves to the user with the specified ID
-// Returns a promise that resolves to the user with the specified ID
 module.exports.findTopic = async (id) => {
     const params = {
         TableName: TOPICS_TABLE,
@@ -24,10 +22,9 @@ module.exports.findTopic = async (id) => {
 };
 
 module.exports.createTopic = async (object) => {
-
     const params = {
         TableName: TOPICS_TABLE,
-        Item: { topicId: 'introduction', mod1_id: '1', mod2_id: '2' }
+        Item: object
     };
     try {
         await docClient.send(new PutCommand(params));
