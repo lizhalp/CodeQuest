@@ -1,0 +1,67 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: codequest
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: codequest
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: api
+
+stages:
+  default:
+    params:
+      usersTableName: "users-table-${sls:stage}"
+      topicsTableName: "topics-table-${sls:stage}"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+            - Fn::GetAtt: [TopicsTable, Arn]
+          
+  environment:
+    USERS_TABLE: ${param:usersTableName}
+    TOPICS_TABLE: ${param:topicsTableName}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${param:usersTableName}
+
+    TopicsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: topicId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: topicId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${param:topicsTableName}
