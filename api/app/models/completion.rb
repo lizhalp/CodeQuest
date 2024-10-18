@@ -1,2 +1,0 @@
-class Completion < ApplicationRecord
-end
