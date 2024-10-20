@@ -1,0 +1,86 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+.nav-link.active {
+    border-bottom: 4px solid hotpink;
+}
+
+
+/* Override Bootstrap primary button styles */
+.btn-primary {
+    background-color: hotpink;
+    border-color: hotpink;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background-color: #ff69b4; /* Slightly darker shade of hotpink for hover/focus/active states */
+    border-color: #ff69b4;
+}
+
+/* Override Bootstrap secondary button styles */
+.btn-secondary {
+    background-color: #ff69b4; /* Slightly darker shade of hotpink */
+    border-color: #ff69b4;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active,
+.open > .dropdown-toggle.btn-secondary {
+    background-color: hotpink;
+    border-color: hotpink;
+}
+
+.profile-icon {
+    width: 50px; /* Size of the circular icon */
+    height: 50px; /* Size of the circular icon */
+    background-color: #d9d9d9; /* Background color (grayscale) */
+    border-radius: 50%; /* Makes the icon circular */
+    display: flex; /* Center the icon */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    color: #fff; /* Icon color */
+    font-size: 1.5em; /* Icon size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.logo-icon {
+    width: 50px; /* Size of the circular icon */
+    height: 50px; /* Size of the circular icon */
+    background-color: transparent; /* Background color (transparent) */
+    border-radius: 50%; /* Makes the icon circular */
+    display: flex; /* Center the icon */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    color: hotpink; /* Icon color */
+    font-size: 1.5em; /* Icon size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-right: 10px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .form-check-input:checked {
+    background-color: hotpink;
+    border-color: hotpink;
+  }
