@@ -1,0 +1,7 @@
+# /Users/rjhalpern-af/Documents/github/CodeQuest/test/fixtures/users.yml
+
+one:
+  id: 1
+  username: John Doe
+  email_address: john.doe@example.com
+  password_digest: <%= BCrypt::Password.create('password') %>
