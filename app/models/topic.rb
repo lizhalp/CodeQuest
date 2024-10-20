@@ -1,7 +1,7 @@
 class Topic < ApplicationRecord
   has_many :contents, dependent: :destroy
 
-  validates :title, presence: true
+  validates :name, presence: true
 
   def articles
     contents.where(type: "Article")
