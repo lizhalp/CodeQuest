@@ -1,0 +1,20 @@
+<% content_for :title, "Topics" %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Topics</h1>
+  <%= link_to new_topic_path do %>
+    <i class="bi bi-plus" style="font-size: 2.5em; color: hotpink"></i>
+  <% end %>
+</div>
+
+<div id="topics" class="container">
+  <div class="row">
+    <% @topics.each do |topic| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <%= render topic %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

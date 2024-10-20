@@ -1,0 +1,28 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>Email address:</strong>
+    <%= user.email_address %>
+  </p>
+
+  <p>
+    <strong>Username:</strong>
+    <%= user.username %>
+  </p>
+
+  <p>
+    <strong>Dark mode enabled:</strong>
+    <%= user.dark_mode_enabled %>
+  </p>
+
+  <p>
+    <strong>Notifications enabled:</strong>
+    <%= user.notifications_enabled %>
+  </p>
+
+  <p>
+    <strong>Is admin:</strong>
+    <%= user.is_admin %>
+  </p>
+
+  <%= button_to 'Logout', logout_path, method: :delete, class: 'btn btn-danger' %>
+</div>

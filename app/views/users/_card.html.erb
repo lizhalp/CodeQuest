@@ -1,0 +1,54 @@
+<% edit_mode = local_assigns.fetch(:edit, false) %>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <%= form_with model: @user, local: true do |form| %>
+                        <div class="form-group">
+                            <%= form.label :email_address, class: "form-label" %>
+                            <%= form.text_field :email_address, class: "form-control", disabled: !edit_mode %>
+                        </div>
+
+                        <div class="form-group">
+                            <%= form.label :username, class: "form-label" %>
+                            <%= form.text_field :username, class: "form-control", disabled: !edit_mode %>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <%= form.check_box :dark_mode_enabled, class: "form-check-input", disabled: !edit_mode %>
+                            <%= form.label :dark_mode_enabled, class: "form-check-label" %>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <%= form.check_box :notifications_enabled, class: "form-check-input", disabled: !edit_mode %>
+                            <%= form.label :notifications_enabled, class: "form-check-label" %>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <%= form.check_box :is_admin, class: "form-check-input", disabled: !edit_mode %>
+                            <%= form.label :is_admin, class: "form-check-label" %>
+                        </div>
+
+                        <% if edit_mode %>
+                            <div class="form-group">
+                                <%= form.submit "Save", class: "btn btn-primary" %>
+                                <%= link_to "Cancel", user_path(@user), class: "btn btn-secondary" %>
+                            </div>
+                        <% else %>
+                            <div class="form-group">
+                                <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary" %>
+                            </div>
+                        <% end %>
+                    <% end %>
+                    <div class="form-group mt-3">
+                        <%= form_with url: logout_path, local: true do %>
+                            <%= submit_tag "Logout", class: "btn btn-danger" %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
