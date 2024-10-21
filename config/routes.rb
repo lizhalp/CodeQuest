@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :contents, except: %i[index]
+  resources :contents, except: %i[index] do
+    member do
+      post :view
+    end
+  end
   resources :users
   resources :topics
   resource :session

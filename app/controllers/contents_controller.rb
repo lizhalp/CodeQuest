@@ -1,5 +1,5 @@
 class ContentsController < ApplicationController
-  before_action :set_content, only: %i[ show edit update destroy ]
+  before_action :set_content, only: %i[ show edit update destroy view ]
 
   # GET /contents/1 or /contents/1.json
   def show
@@ -14,7 +14,6 @@ class ContentsController < ApplicationController
   def edit
   end
 
-  # POST /contents or /contents.json
   def create
     @content = Content.new(content_params)
 
@@ -46,13 +45,19 @@ class ContentsController < ApplicationController
     end
   end
 
+  def view
+    Completion.create user: Current.user, content: @content
+    flash[:success] = "Succesfully completed #{@content.title}"
+    redirect_to topics_path
+  end
+
   # DELETE /contents/1 or /contents/1.json
   def destroy
     @content.destroy!
 
     respond_to do |format|
       flash[:success] = "Content was successfully destroyed."
-      format.html { redirect_to contents_path, status: :see_other }
+      format.html { redirect_to topics_path, status: :see_other }
       format.json { head :no_content }
     end
   end
