@@ -4,4 +4,10 @@ one:
   id: 1
   username: John Doe
   email_address: john.doe@example.com
-  password_digest: <%= BCrypt::Password.create('password') %>
+  password_digest: test
+
+two:
+  id: 2
+  username: Jane Doe
+  email_address: jane.doe@example.com
+  password_digest: test
