@@ -80,7 +80,7 @@ a {
     text-decoration: underline;
   }
   
-  .form-check-input:checked {
-    background-color: hotpink;
-    border-color: hotpink;
-  }
+.form-check-input:checked {
+background-color: hotpink;
+border-color: hotpink;
+}

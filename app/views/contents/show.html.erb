@@ -3,4 +3,5 @@
 <div>
   <%= link_to "Edit this content", edit_content_path(@content) %> |
   <%= button_to "Destroy this content", @content, method: :delete %>
+  <%= button_to "Mark completed", view_content_path(@content), method: :post %>
 </div>

@@ -6,6 +6,8 @@ class Content < ApplicationRecord
   belongs_to :user
   belongs_to :topic
 
+  has_many :completions, dependent: :destroy
+
   validates :title, presence: true
   validates :content_text, presence: true
   validates :user, presence: true
