@@ -10,9 +10,7 @@
     <ul class="list-group list-group-flush">
       <% topic.contents.each do |content| %>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="read_<%= content.id %>" checked="true">
-          </div>
+          <input type="checkbox" class="form-check-input" disabled="true" id="read_<%= content.id %>" <%= completion_checkbox_value content %>>
           <div class="d-flex align-items-center ms-auto">
             <% if content.type == 'Article' %>
               <i class="bi bi-book" style="font-size: 1.2em; color: hotpink; margin-right: 10px;"></i>

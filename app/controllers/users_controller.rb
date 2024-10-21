@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-
+  allow_unauthenticated_access only: %i[ new create ]
   # GET /users or /users.json
   def index
     @users = User.all
@@ -70,6 +70,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email_address, :username, :dark_mode_enabled, :notifications_enabled, :is_admin)
+      params.require(:user).permit(:email_address, :username, :password, :dark_mode_enabled, :notifications_enabled, :is_admin)
     end
 end
