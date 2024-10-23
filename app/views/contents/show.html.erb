@@ -1,7 +1,7 @@
 <%= render @content %>
 
-<div>
-  <%= link_to "Edit this content", edit_content_path(@content) %> |
-  <%= button_to "Destroy this content", @content, method: :delete %>
-  <%= button_to "Mark completed", view_content_path(@content), method: :post %>
-</div>
+<% if Current.user.completed_content? @content %>
+  <%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>
+<% else %>
+  <%= button_to "Mark completed", view_content_path(@content), method: :post, class: "btn btn-primary" %>
+<% end %>
