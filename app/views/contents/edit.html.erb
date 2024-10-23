@@ -1,11 +1,14 @@
 <% content_for :title, "Editing content" %>
 
-<h1>Editing content</h1>
+<h1 class="d-flex justify-content-between align-items-center">
+  Editing content
+  <%= link_to @content, class: "btn btn-link" do %>
+    <i class="bi bi-eye" style="font-size: 1.2em; color: hotpink;"></i>
+  <% end %>
+</h1>
+
 
 <%= render "form", content: @content %>
 
 <br>
 
-<div>
-  <%= link_to "Show this content", @content %> |
-</div>
