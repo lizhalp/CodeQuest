@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_24_154813) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -66,6 +66,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
     t.integer "topic_id"
   end
 
+  create_table "exercises", force: :cascade do |t|
+    t.integer "content_id"
+    t.integer "judge0_language_id"
+    t.text "code_template"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_exercises_on_content_id", unique: true
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -90,6 +99,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
     t.boolean "notifications_enabled", default: true
     t.boolean "dark_mode_enabled", default: false
     t.boolean "is_admin", default: false
+    t.string "uid"
+    t.string "provider"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
