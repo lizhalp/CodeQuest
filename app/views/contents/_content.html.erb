@@ -4,13 +4,14 @@
       <h5 class="card-title mb-0"><%= content.title %></h5>
       <h6 class="card-subtitle text-muted">By: <%= link_to content.user.username, content.user %></h6>
     </div>
+    <div class="btn-group" role="group">
     <% if Current.user == content.user %>
-      <div class="btn-group" role="group">
-        <%= link_to edit_content_path(content) do %>
-          <i class="bi bi-pencil-square" style="font-size: 1.2em; color: hotpink;"></i>
+      <%= link_to edit_content_path(content) do %>
+          <i class="bi bi-pencil-square me-3" style="font-size: 1.2em; color: hotpink;"></i>
         <% end %>
-      </div>
+        <%= render 'layouts/vote_buttons', content: %>
     <% end %>
+    </div>
   </div>
   <div class="card-body">
     <div class="card-text">
