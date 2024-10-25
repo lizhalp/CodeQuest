@@ -1,10 +1,12 @@
 class VotesController < ApplicationController
   def create
-    @vote = Vote.new(vote_params)
-    if @vote.save
-      render json: { success: true }
-    else
-      render json: { success: false, errors: @vote.errors.full_messages }, status: :unprocessable_entity
+    Vote.find_or_initialize_by(content_id: vote_params[:content_id], user_id: vote_params[:user_id]).tap do |vote|
+      vote.value = vote_params[:value]
+      if vote.save
+        render json: { success: true }
+      else
+        render json: { success: false, errors: vote.errors.full_messages }, status: :unprocessable_entity
+      end
     end
   end
 

@@ -31,7 +31,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({ vote: { value, content_id: contentId, user_id: userId } })
+                body: JSON.stringify({ vote: { value: value, content_id: contentId, user_id: userId } })
             }).then(response => response.json())
               .then(data => {
                   if (data.success) {
