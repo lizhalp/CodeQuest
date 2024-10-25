@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       post :view
     end
   end
-  resources :users
+  resources :users, except: [ :index ]
   resources :topics
   resource :session
   resources :votes, only: [ :create ]
