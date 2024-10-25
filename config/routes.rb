@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   post "logout" => "sessions#destroy", as: :logout
 
+  get "/auth/:provider/callback", to: "sessions#omniauth"
+
   # Defines the root path route ("/")
   root to: "topics#index"
 end
