@@ -18,30 +18,30 @@
 </span>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.vote-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const value = button.getAttribute('data-value');
-            const contentId = button.getAttribute('data-content-id');
-            const userId = button.getAttribute('data-user-id');
+    $(document).ready(function() {
+        $('body').on('click', '.vote-button', function(event) {
+            const button = $(event.target);
+            const value = button.data('value');
+            const contentId = button.data('content-id');
+            const userId = button.data('user-id');
 
-            fetch('/votes', {
+            $.ajax({
+                url: '/votes',
                 method: 'POST',
+                contentType: 'application/json',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
-                body: JSON.stringify({ vote: { value: value, content_id: contentId, user_id: userId } })
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      // Optionally update the UI here
-                      location.reload();
-                  } else {
-                      alert('Error creating vote');
-                  }
-              });
+                data: JSON.stringify({ vote: { value: value, content_id: contentId, user_id: userId } }),
+                success: function(data) {
+                    if (data.success) {
+                        // Optionally update the UI here
+                        location.reload();
+                    } else {
+                        alert('Error creating vote');
+                    }
+                }
+            });
         });
     });
-});
 </script>
