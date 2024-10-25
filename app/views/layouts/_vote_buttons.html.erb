@@ -1,5 +1,47 @@
 <%# app/views/layouts/_vote_buttons.html.erb %>
 <%# This partial expects `content` and `user` to be passed in %>
+<% vote = Vote.where(user_id: user.id, content_id: content.id).first %>
+<% if vote %>
+    <% if vote.value > 0 %>
+        <i class="bi bi-hand-thumbs-up-fill vote-button" data-value="1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+        <i class="bi bi-hand-thumbs-down vote-button" data-value="-1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+    <% else %>
+        <i class="bi bi-hand-thumbs-up vote-button" data-value="1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+        <i class="bi bi-hand-thumbs-down-fill vote-button" data-value="-1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+    <% end %>
+<% else %>
+    <i class="bi bi-hand-thumbs-up vote-button" data-value="1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+    <i class="bi bi-hand-thumbs-down vote-button" data-value="-1" data-content-id="<%= content.id %>" data-user-id="<%= user.id %>" style="font-size: 1.2em; color: hotpink;"></i>
+<% end %>
+<span class="mx-3 vote-sum" style="font-size: 1.2em; color: hotpink;">
+    <%= Vote.where(content_id: content.id).sum(:value) %>
+</span>
 
-<i class="bi bi-hand-thumbs-up" style="font-size: 1.2em; color: hotpink;"></i>
-<i class="bi bi-hand-thumbs-down" style="font-size: 1.2em; color: hotpink;"></i>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.vote-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const value = button.getAttribute('data-value');
+            const contentId = button.getAttribute('data-content-id');
+            const userId = button.getAttribute('data-user-id');
+
+            fetch('/votes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ vote: { value, content_id: contentId, user_id: userId } })
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      // Optionally update the UI here
+                      location.reload();
+                  } else {
+                      alert('Error creating vote');
+                  }
+              });
+        });
+    });
+});
+</script>

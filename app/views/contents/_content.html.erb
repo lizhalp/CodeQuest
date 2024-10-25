@@ -9,8 +9,8 @@
       <%= link_to edit_content_path(content) do %>
           <i class="bi bi-pencil-square me-3" style="font-size: 1.2em; color: hotpink;"></i>
         <% end %>
-        <%= render 'layouts/vote_buttons', content: %>
     <% end %>
+    <%= render 'layouts/vote_buttons', content:, user: Current.user %>
     </div>
   </div>
   <div class="card-body">
