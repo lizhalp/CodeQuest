@@ -67,4 +67,5 @@ gem "dockerfile-rails", ">= 1.6", group: :development
 gem "aws-sdk-s3", "~> 1.169", require: false
 gem "omniauth"
 gem "omniauth-google-oauth2"
+gem 'omniauth-discord'
 gem "omniauth-rails_csrf_protection"
