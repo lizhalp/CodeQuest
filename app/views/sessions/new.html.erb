@@ -1,16 +1,22 @@
-<h1> Sign in </h1>
-<%= form_with url: session_path, class: "form-signin" do |form| %>
-  <div class="form-group mb-3">
-    <%= form.label :email_address, "Email Address: " %>
-    <%= form.email_field :email_address, class: "form-control", required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %>
-  </div>
-  <div class="form-group mb-3">
-    <%= form.label :password, "Password: " %>
-    <%= form.password_field :password, class: "form-control", required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %>
-  </div>
-  <div class="d-flex align-items-center mb-3">
-    <%= form.submit "Sign in", class: "btn btn-primary" %>
-    <%= link_to "Forgot password?", new_password_path, class: "btn btn-link text-muted ms-2", style: "font-size: smaller; font-style: italic;" %>
+<%= form_with url: session_path do |form| %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-15 col-lg-7 login-container bg-light box-container">
+        <h1 class="text-center">Sign In</h1>
+        <%= form.label :email_address, "Email Address: " %>
+        <div class="form-group">
+          <%= form.email_field :email_address, class: "form-control", required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %>
+        </div>
+        <%= form.label :password, "Password: " %>
+        <div class="form-group">
+          <%= form.password_field :password, class: "form-control", required: true, autocomplete: "current-password", placeholder: "Enter your password" %>
+        </div>
+        <%= link_to "Forgot password?", new_password_path, class: "btn btn-link text-muted ms-2", style: "font-size: smaller; font-style: italic;" %>
+        <%= form.submit "Sign in", class: "btn-Sign-In btn-primary" %>
+        <br>
+        <h3 id="alt-sign-in">or sign in with</h3>
+        <%= render 'layouts/oauth_buttons' %>
+      </div>
+    </div>
   </div>
 <% end %>
-<%= render 'layouts/oauth_buttons' %>

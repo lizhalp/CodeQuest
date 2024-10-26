@@ -1,0 +1,127 @@
+.box-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.big-box {
+    border: 2px solid #000; /* Black border */
+    padding: 20px;          /* Space inside the box */
+    margin: 20px;           /* Space outside the box */
+    border-radius: 10px;    /* Rounded corners */
+    background-color: #f9f9f9; /* Light grey background */
+  }
+.box-container h1 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.box-container h3 {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.form-control::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.btn-Sign-In{
+    display: inline-block;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-Sign-In:hover {
+background-color: #0056b3;
+}
+
+.btn-Sign-In:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
+
+.btn-Sign-In:active {
+    background-color: #004085;
+}
+
+#alt-sign-in {
+    text-align: center;
+    color: #918f8f;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+#google-btn {
+    background-color: #db4437;
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+}
+
+#google-btn:hover {
+    background-color: #c23321;
+}
+
+#discord-btn {
+    background-color: #7289da;
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+}
+
+#discord-btn:hover {
+    background-color: #5b6eae;
+}
+
+#github-btn {
+    background-color: #333;
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+}
+
+#github-btn:hover {
+    background-color: #24292e;
+}
