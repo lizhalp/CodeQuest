@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :contents, except: %i[index] do
-    member do
-      post :view
+  resources :users, except: [ :index ]
+  resources :topics do
+    resources :contents, except: %i[index] do
+      member do
+        post :view
+      end
     end
   end
-  resources :users, except: [ :index ]
-  resources :topics
   resource :session
   resources :votes, only: [ :create ]
   resources :passwords, param: :token

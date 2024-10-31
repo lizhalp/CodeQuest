@@ -7,6 +7,7 @@ class Content < ApplicationRecord
   belongs_to :topic
 
   has_many :completions, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   validates :title, presence: true
   validates :content_text, presence: true
@@ -16,5 +17,9 @@ class Content < ApplicationRecord
 
   def self.types
     %w[ Article ArticleWithQuiz RequiredExercise OptionalExercise ]
+  end
+
+  def vote_sum
+    votes.sum(:value)
   end
 end

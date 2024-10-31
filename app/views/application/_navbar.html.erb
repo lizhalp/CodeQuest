@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
     <div class="container-fluid">
         <i class="bi bi-terminal logo-icon" style="font-size: 1.5em;"></i>
         <a class="navbar-brand" href="#">
@@ -12,17 +12,30 @@
                 <li class="nav-item">
                     <%= link_to 'Learn', topics_path, class: "nav-link #{navbar_active?(topics_path)}" %>
                 </li>
-                <li class="nav-item">
-                    <%= link_to 'Create', new_content_path, class: "nav-link #{navbar_active?(new_content_path)}" %>
-                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
+
                 <% if Current.user %>
                     <li class="nav-item">
-                        <%= link_to user_path(Current.user), class: 'nav-link profile-icon' do %>
-                            <i class="bi bi-person"></i>
+                        <%= link_to user_path(Current.user), class: 'nav-link' do %>
+                            <i class="bi bi-person" style="font-size: 1.5em; color: hotpink"></i>
                         <% end %>
                     </li>
+                    <li class="nav-item">
+                    <a id="theme-toggle" class="nav-link" href="#">
+                        <i class="bi bi-moon" style="font-size: 1.5em; color: hotpink"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-inbox" style="font-size: 1.5em; color: hotpink"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-star" style="font-size: 1.5em; color: hotpink"></i>
+                    </a>
+                </li>
                 <% else %>
                     <li class="nav-item">
                         <%= link_to new_session_path, class: 'nav-link' do %>
@@ -39,3 +52,33 @@
         </div>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function() {
+        const themeToggle = $('#theme-toggle');
+        const navbar = $('#navbar');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        if (currentTheme === 'dark') {
+            $('body').addClass('dark-mode');
+            navbar.removeClass('navbar-light bg-light').addClass('navbar-dark').css('background', 'linear-gradient(45deg, #000, #111)').attr('data-bs-theme', 'dark');
+            $('body').css('background', 'linear-gradient(135deg, #111, #000)');
+            themeToggle.html('<i class="bi bi-sun" style="font-size: 1.5em; color: hotpink"></i>');
+        }
+
+        themeToggle.on('click', function() {
+            $('body').toggleClass('dark-mode');
+            const theme = $('body').hasClass('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                navbar.removeClass('navbar-light bg-light').addClass('navbar-dark').css('background', 'linear-gradient(45deg, #000, #111)').attr('data-bs-theme', 'dark');
+                $('body').css('background', 'linear-gradient(135deg, #111, #000)');
+                themeToggle.html('<i class="bi bi-sun" style="font-size: 1.5em; color: hotpink"></i>');
+            } else {
+                navbar.removeClass('navbar-dark').addClass('navbar-light bg-light').css('background', '').removeAttr('data-bs-theme');
+                $('body').css('background', '');
+                themeToggle.html('<i class="bi bi-moon" style="font-size: 1.5em; color: hotpink"></i>');
+            }
+        });
+    });
+</script>

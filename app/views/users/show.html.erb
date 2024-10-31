@@ -1,8 +1,60 @@
-<h1>User profile</h1>
+<% content_for :title, "Editing user" %>
 
-<%= render partial: 'card', locals: { edit: false } %>
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
-</div>
+<turbo-frame id="main-content">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">User Profile</h2>
+          </div>
+          <div class="card-body">
+            <% if Current.user == @user %>
+              <%= render "form", user: @user %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Completed Content</h3>
+            <small class="text-muted">
+              <%= Completion.where(user_id: Current.user.id).count %> Items completed
+            </small>
+          </div>
+          <ul class="list-group list-group-flush">
+            <% Completion.where(user_id: Current.user.id).each do |completion| %>
+              <li class="list-group-item">
+                <%= link_to completion.content.title, topic_content_path(completion.content.topic, completion.content) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Created Content</h3>
+            <small class="text-muted">
+              <%= Content.where(user: Current.user).sum { |content| Vote.where(content_id: content.id).sum(:value) } %> Karma
+            </small>
+          </div>
+          <ul class="list-group list-group-flush">
+            <% Content.where(user: Current.user).each do |content| %>
+              <li class="list-group-item">
+                <%= link_to content.title, topic_content_path(content.topic, content) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center m-4">
+    <div class="d-inline-block">
+      <%= button_to "Logout", logout_path, class: "btn btn-danger" %>
+    </div>
+    <div class="d-inline-block ml-2">
+      <%= link_to "Go Back", topics_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</turbo-frame>

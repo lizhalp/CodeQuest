@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "vote-component-#{@vote.content_id}" do %>
+  <%= render partial: "votes/vote_buttons", locals: { content: @vote.content, user: current_user } %>
+<% end %>

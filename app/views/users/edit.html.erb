@@ -1,12 +1,42 @@
 <% content_for :title, "Editing user" %>
 
-<h1>Editing user</h1>
-
-<%= render "form", user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">User Profile</h2>
+        </div>
+        <div class="card-body">
+          <%= render "form", user: @user %>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Completed Content</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% Completion.where(user_id: Current.user.id).each do |completion| %>
+            <li class="list-group-item">
+              <%= link_to completion.content.title, content_path(completion.content) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Created Content</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% Content.where(user: Current.user).each do |content| %>
+            <li class="list-group-item">
+              <%= link_to content.title, content_path(content) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

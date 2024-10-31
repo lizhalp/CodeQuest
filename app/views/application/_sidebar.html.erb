@@ -1,0 +1,133 @@
+<div class="d-flex" style="height: 100vh;"> <!-- Ensure the parent container has a height -->
+    <div id="sidebar" class="border-right sidebar-collapsed">
+        <div id="sidebar-content" class="d-none">
+            <h3 id="sidebar-heading" class="mt-4 d-none">Table of Contents</h3>
+            <%= render 'topics/topics_sidebar' %>
+        </div>
+    </div>
+    <div class="flex-grow-1 p-3 d-flex align-items-start">
+        <div class="d-flex flex-column align-items-center" style="height: 100%;"> <!-- Ensure the inner container has a height -->
+            <div id="expand-btn" class="expand-btn">
+                <span id="expand-btn-icon" class="bi bi-chevron-right"></span>
+            </div>
+            <div id="vertical-line" class="vertical-line"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        // Check local storage for sidebar state
+        if (localStorage.getItem('sidebarState') === 'expanded') {
+            $('#sidebar').removeClass('sidebar-collapsed').addClass('sidebar-expanded');
+            $('#sidebar-content').removeClass('d-none');
+            $('#sidebar-heading').removeClass('d-none');
+            $('#expand-btn-icon').removeClass('bi-chevron-right').addClass('bi-chevron-left');
+            $('#expand-btn-text').show();
+        } else {
+            $('#expand-btn-text').hide();
+        }
+
+        $('#expand-btn').click(function() {
+            $('#sidebar').toggleClass('sidebar-expanded sidebar-collapsed');
+            $('#sidebar-content').toggleClass('d-none');
+            $('#sidebar-heading').toggleClass('d-none');
+            $('#expand-btn-icon').toggleClass('bi-chevron-right bi-chevron-left');
+            $('#expand-btn-text').toggle();
+
+            // Save the state to local storage
+            if ($('#sidebar').hasClass('sidebar-expanded')) {
+                localStorage.setItem('sidebarState', 'expanded');
+            } else {
+                localStorage.setItem('sidebarState', 'collapsed');
+            }
+        });
+    });
+</script>
+<style>
+    .sidebar-collapsed {
+        width: 0;
+        overflow: hidden;
+    }
+    .sidebar-expanded {
+        width: 250px; /* Adjust width as needed */
+    }
+    .expand-btn {
+        font-size: 2.0em;
+        color: hotpink;
+        cursor: pointer;
+    }
+    .vertical-line {
+        border-left: 2px solid hotpink;
+        height: 100%; /* Ensure the line takes the full height of the parent */
+        display: block;
+    }
+    /* Light mode heading color */
+    #sidebar-heading {
+        color: black;
+    }
+    /* Dark mode heading color */
+    body.dark-mode #sidebar-heading {
+        color: lightgray;
+    }
+    /* Light mode text color */
+    #sidebar-content, #sidebar-content a {
+        color: black important!;
+    }
+    /* Dark mode text color */
+    body.dark-mode #sidebar-content, body.dark-mode #sidebar-content a {
+        color: lightgray;
+    }
+    /* Global styles for dark mode */
+    body.dark-mode {
+        color: lightgray;
+    }
+
+    /* Dark mode table color */
+    body.dark-mode table {
+        color: lightgray;
+    }
+
+    /* dark mode link color */
+    body.dark-mode a {
+        color: lightgray;
+    }
+    /* Dark mode form background color */
+    body.dark-mode form {
+        background-color: transparent;
+    }
+
+    /* Dark mode form text color */
+    body.dark-mode form, body.dark-mode form label {
+        background-color: transparent;
+    }
+
+    /* Dark mode input fields */
+    body.dark-mode input, body.dark-mode textarea, body.dark-mode trix-editor, body.dark-mode select {
+        background-color: transparent;
+        color: lightgray;
+        border: 1px solid #555;
+    }
+
+    /* Dark mode input placeholder color */
+    body.dark-mode input::placeholder, body.dark-mode textarea::placeholder {
+        color: #888;
+    }
+
+    /* Dark mode button */
+    body.dark-mode .btn-primary {
+        background-color: hotpink;
+        color: white;
+        border: none;
+    }
+    /* Dark mode trix button
+    body.dark-mode .trix-button {
+        background-color: transparent;
+        text-color: hotpink;
+    } */
+    body.dark-mode .trix-button--icon {
+        background-color: hotpink;
+        color: white;
+        border: 1px solid hotpink;
+
+    }
+</style>

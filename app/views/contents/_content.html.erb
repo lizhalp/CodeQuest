@@ -9,11 +9,12 @@
           </div>
           <div class="btn-group" role="group">
             <% if Current.user == content.user %>
-              <%= link_to edit_content_path(content) do %>
+              <%= link_to edit_topic_content_path(content) do %>
                 <i class="bi bi-pencil-square me-3" style="font-size: 1.2em; color: hotpink;"></i>
               <% end %>
             <% end %>
-            <%= render 'layouts/vote_buttons', content:, user: Current.user %>
+<%= turbo_stream_from "votes_for_content_#{content.id}" %>
+<%= render partial: "votes/vote_buttons", locals: { content: content, user: Current.user } %>
           </div>
         </div>
         <div class="card-body">

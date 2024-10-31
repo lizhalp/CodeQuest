@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :completions, dependent: :destroy
 
+  validates :email_address, uniqueness: true
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   def completed_content?(content)
