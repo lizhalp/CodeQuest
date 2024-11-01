@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_25_182917) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_01_223314) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -73,6 +73,31 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_25_182917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["content_id"], name: "index_exercises_on_content_id", unique: true
+  end
+
+  create_table "multiple_choice_questions", force: :cascade do |t|
+    t.integer "multiple_choice_quiz_id"
+    t.text "text"
+    t.string "options"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "multiple_choice_quiz_attempts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "multiple_choice_quiz_id"
+    t.float "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "multiple_choice_quizzes", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.integer "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|

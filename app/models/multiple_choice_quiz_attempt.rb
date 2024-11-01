@@ -1,0 +1,2 @@
+class MultipleChoiceQuizAttempt < ApplicationRecord
+end

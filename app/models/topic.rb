@@ -1,5 +1,6 @@
 class Topic < ApplicationRecord
   has_many :contents, dependent: :destroy
+  has_many :multiple_choice_quizzes, dependent: :destroy
 
   validates :name, presence: true
 

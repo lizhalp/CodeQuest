@@ -1,14 +1,10 @@
 <turbo-frame id="main-content" class="text-muted">
-  <div class="d-flex justify-content-between align-items-center" style="margin-top: 28px;">
-    <h3 id="sidebar-heading"> <%= topic.name %> </h3>
-    <%= link_to new_topic_content_path(topic) do %>
-      <i class="bi bi-plus" style="font-size: 2.5em; color: hotpink;"></i>
-    <% end %>
-  </div>  
+  <%= render 'layouts/heading', createable: new_topic_content_path(@topic) do "Create #{@topic.name} lesson" end %>
+
   <table class="table">
     <thead>
       <tr>
-        <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Lesson</th>
+        <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Lessons</th>
         <th scope="col" style="width: 25%; color: hotpink; font-size: 1.0em;"></th>
         <th scope="col" style="width: 50%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
         <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
@@ -37,6 +33,31 @@
           </td>
           <td class="text-end">
             <%= time_ago_in_words(content.updated_at) %> ago
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Quizzes</th>
+        <th scope="col" style="width: 75%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
+        <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% topic.multiple_choice_quizzes.each do |quiz| %>
+        <tr>
+          <td class="text-center align-middle">
+            <i class="bi bi-question-circle content-icon" style="font-size: 1.5em; color: hotpink;"></i>
+          </td>
+          <td class="align-items-center">
+            <%= link_to quiz.name, [quiz.topic, quiz], class: "text-decoration-none" %>
+          </td>
+          <td class="text-end">
+            <%= time_ago_in_words(quiz.updated_at) %> ago
           </td>
         </tr>
       <% end %>

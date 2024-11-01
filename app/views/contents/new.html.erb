@@ -1,11 +1,7 @@
 <% content_for :title, "New content" %>
 
 <turbo-frame id="main-content">
-    <h3 id="sidebar-heading"style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
-        Create <%= @topic.name %> lesson
-        <%= link_to topic_path(@topic) do %>
-            <i class="bi bi-x" style="font-size: 1.5em; color: hotpink;"></i>
-        <% end %>
-    </h3>
+    <%= render "layouts/heading", closeable: topic_path(@topic) do "Create #{@topic.name} lesson" end %>
     <%= render "form", content: @content %>
+    <%= link_to "Create Multiple Choice Quiz", new_topic_multiple_choice_quiz_path(@topic), class: 'btn btn-primary' %>
 </turbo-frame>  

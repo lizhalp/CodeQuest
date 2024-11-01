@@ -1,6 +1,6 @@
 class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy view ]
-  before_action :set_topic, only: %i[ new show edit update destroy view ]
+  before_action :set_topic, only: %i[ new create show edit update destroy view ]
 
   # GET /contents/1 or /contents/1.json
   def show

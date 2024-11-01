@@ -1,17 +1,16 @@
 <div class="d-flex" style="height: 100vh;"> <!-- Ensure the parent container has a height -->
-    <div id="sidebar" class="border-right sidebar-collapsed">
+    <div id="sidebar" class="sidebar-collapsed">
         <div id="sidebar-content" class="d-none">
-            <h3 id="sidebar-heading" class="mt-4 d-none">Table of Contents</h3>
+            <%= render 'layouts/heading' do "Your Study Topics" end %>
             <%= render 'topics/topics_sidebar' %>
         </div>
     </div>
-    <div class="flex-grow-1 p-3 d-flex align-items-start">
-        <div class="d-flex flex-column align-items-center" style="height: 100%;"> <!-- Ensure the inner container has a height -->
-            <div id="expand-btn" class="expand-btn">
-                <span id="expand-btn-icon" class="bi bi-chevron-right"></span>
-            </div>
-            <div id="vertical-line" class="vertical-line"></div>
+    <div id="expand-btn" class="expand-btn">
+        <div class="d-flex align-items-start m-2">
+            <span id="expand-btn-icon" class="bi-chevron-right me-2"></span>
+            <div class="vertical-line me-3"></div>
         </div>
+        <span id="expand-btn-text" class="d-none">Expand</span>
     </div>
 </div>
 <script>
@@ -20,7 +19,6 @@
         if (localStorage.getItem('sidebarState') === 'expanded') {
             $('#sidebar').removeClass('sidebar-collapsed').addClass('sidebar-expanded');
             $('#sidebar-content').removeClass('d-none');
-            $('#sidebar-heading').removeClass('d-none');
             $('#expand-btn-icon').removeClass('bi-chevron-right').addClass('bi-chevron-left');
             $('#expand-btn-text').show();
         } else {
@@ -30,7 +28,6 @@
         $('#expand-btn').click(function() {
             $('#sidebar').toggleClass('sidebar-expanded sidebar-collapsed');
             $('#sidebar-content').toggleClass('d-none');
-            $('#sidebar-heading').toggleClass('d-none');
             $('#expand-btn-icon').toggleClass('bi-chevron-right bi-chevron-left');
             $('#expand-btn-text').toggle();
 
@@ -58,7 +55,7 @@
     }
     .vertical-line {
         border-left: 2px solid hotpink;
-        height: 100%; /* Ensure the line takes the full height of the parent */
+        height: 100vh; /* Ensure the line takes the full height of the viewport */
         display: block;
     }
     /* Light mode heading color */
@@ -71,7 +68,7 @@
     }
     /* Light mode text color */
     #sidebar-content, #sidebar-content a {
-        color: black important!;
+        color: black;
     }
     /* Dark mode text color */
     body.dark-mode #sidebar-content, body.dark-mode #sidebar-content a {
@@ -119,7 +116,7 @@
         color: white;
         border: none;
     }
-    /* Dark mode trix button
+    /* Dark mode trix button */
     body.dark-mode .trix-button {
         background-color: transparent;
         text-color: hotpink;
@@ -154,6 +151,5 @@
         background-color: hotpink;
         color: white;
         border: 1px solid hotpink;
-
     }
 </style>

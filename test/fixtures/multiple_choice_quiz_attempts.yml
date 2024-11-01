@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  multiple_choice_quiz_id: 1
+  score: 1.5
+
+two:
+  user_id: 1
+  multiple_choice_quiz_id: 1
+  score: 1.5

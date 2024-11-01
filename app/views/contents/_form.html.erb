@@ -1,20 +1,16 @@
-<%= form_with(model: content, url: content.persisted? ? topic_content_path(content.topic, content) : topic_contents_path(content.topic), method: content.persisted? ? :patch : :post, class: "form w-100") do |form| %>
+<%= form_with(model: [@topic, content], class: "form w-100") do |form| %>
   <%= form.hidden_field :user_id, value: Current.user.id %>
+  <%= form.hidden_field :topic_id, value: params[:topic_id]%>
 
   <div class="mb-3">
     <%= form.label :title, class: "form-label" %>
     <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <%= form.hidden_field :topic_id, value: params[:topic_id] %>
-
   <div class="mb-3">
     <%= form.label :type, "Content Type", class: "form-label" %>
     <%= form.select :type, options_for_select(formated_content_types), { prompt: "Select content type" }, class: "form-select" %>
   </div>
-
-  <!-- Render the form fields for the different types of content as hidden -->
-  <%= render 'article_quiz_form' %>
 
   <div class="mb-3">
     <%= form.label :content_text, "Content Text", class: "form-label" %>
