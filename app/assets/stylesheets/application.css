@@ -133,6 +133,9 @@ border-color: hotpink;
   .completed {
     color: #28a745; /* Green color for completed topics */
   }
+  .in-progress {
+    color: hotpink; /* Blue color for topics in posts */
+  }
   
   /* Main content styles */
   .main-content {

@@ -36,7 +36,7 @@ class ContentsController < ApplicationController
     respond_to do |format|
       if @content.update(content_params)
         flash[:success] = "Content was successfully updated."
-        format.html { redirect_to @content }
+        format.html { redirect_to @content.topic }
         format.json { render :show, status: :ok, location: @content }
       else
         flash[:alert] = @content.errors.full_messages.join(", ")

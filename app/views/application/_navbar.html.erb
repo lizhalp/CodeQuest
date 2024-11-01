@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navbar">
     <div class="container-fluid">
         <i class="bi bi-terminal logo-icon" style="font-size: 1.5em;"></i>
         <a class="navbar-brand" href="#">
@@ -8,9 +8,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <%= link_to 'Learn', topics_path, class: "nav-link #{navbar_active?(topics_path)}" %>
+                    <%= link_to 'About', root_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to 'Community Textbook', topics_path, class: "nav-link active" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to 'Duos', topics_path, class: "nav-link" %>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

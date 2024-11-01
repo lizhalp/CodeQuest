@@ -1,8 +1,8 @@
 <turbo-frame id="main-content" class="text-muted">
-  <div class="d-flex justify-content-between align-items-center" style="margin-top: 33px;">
+  <div class="d-flex justify-content-between align-items-center" style="margin-top: 28px;">
     <h3 id="sidebar-heading"> <%= topic.name %> </h3>
     <%= link_to new_topic_content_path(topic) do %>
-      <i class="bi bi-plus" style="font-size: 1.5em; color: hotpink;"></i>
+      <i class="bi bi-plus" style="font-size: 2.5em; color: hotpink;"></i>
     <% end %>
   </div>  
   <table class="table">
@@ -10,14 +10,14 @@
       <tr>
         <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Lesson</th>
         <th scope="col" style="width: 25%; color: hotpink; font-size: 1.0em;"></th>
-        <th scope="col" style="width: 55%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
-        <th scope="col" style="width: 15%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
+        <th scope="col" style="width: 50%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
+        <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
       </tr>
     </thead>
     <tbody>
       <% topic.contents.each do |content| %>
         <tr>
-          <td class="">
+          <td class="text-center align-middle">
             <input type="checkbox" disabled="true" id="read_<%= content.id %>" <%= completion_checkbox_value content %> class="me-3 form-check-input">
           </td>
           <td class="align-items-center">

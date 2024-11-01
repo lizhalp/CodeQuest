@@ -1,15 +1,33 @@
 <div>
-  <% Topic.all.each_with_index do |topic, index| %>
-  <%= link_to topic_path(topic), class: "nav-link d-flex justify-content-between align-items-center small-text theme-link topic-link text-decoration-none", style: "color: #999;", data: { turbo_frame: "main-content" } do %>
-    <%= topic.name %>
-    <% 
-      completed_count = topic.completed_content(Current.user).length
-      total_count = topic.contents.length
-      progress_class = (completed_count == total_count && total_count != 0) ? "completed" : ""
-    %>
-    <span class="topic-progress <%= progress_class %>">
-      <%= completed_count %> / <%= total_count %>
-    </span>
-  <% end %>
+  <% sorted_topics = Topic.all.sort_by do |topic| 
+    completed_count = topic.completed_content(Current.user).length
+    total_count = topic.contents.length
+    if completed_count == total_count && total_count != 0
+      1
+    elsif completed_count > 0
+      -1
+    else
+      0
+    end
+  end %>
+
+  <% sorted_topics.each_with_index do |topic, index| %>
+    <%= link_to topic_path(topic), class: "nav-link d-flex justify-content-between align-items-center small-text theme-link topic-link text-decoration-none", style: "color: #999;", data: { turbo_frame: "main-content" } do %>
+      <%= topic.name %>
+      <% 
+        completed_count = topic.completed_content(Current.user).length
+        total_count = topic.contents.length
+        progress_class = if completed_count == total_count && total_count != 0
+                           "completed"
+                         elsif completed_count > 0
+                           "in-progress"
+                         else
+                           ""
+                         end
+      %>
+      <span class="topic-progress <%= progress_class %>">
+        <%= completed_count %> / <%= total_count %>
+      </span>
+    <% end %>
   <% end %>
 </div>

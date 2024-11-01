@@ -2,7 +2,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["button", "upvoteIcon", "downvoteIcon", "counter"];
+  static targets = ["counter"];
 
   cast(event) {
     event.preventDefault();
@@ -31,7 +31,7 @@ export default class extends Controller {
         this.element.dataset.currentVote = newValue;
 
         // Update the counter
-        this.counterTarget.textContent = data.newVoteCount;
+        this.counterTarget.textContent = data.new_vote_count;
 
         // Update the classes for the upvote and downvote icons
         this.updateIconStyles(newValue);
@@ -47,6 +47,11 @@ export default class extends Controller {
   updateIconStyles(newValue) {
     const upvoteIcon = this.element.querySelector('[data-value="1"]');
     const downvoteIcon = this.element.querySelector('[data-value="-1"]');
+
+    if (!upvoteIcon || !downvoteIcon) {
+      console.error('Upvote or downvote icon not found');
+      return;
+    }
 
     // Clear both icons' filled classes
     upvoteIcon.classList.remove('bi-hand-thumbs-up-fill', 'bi-hand-thumbs-up');
