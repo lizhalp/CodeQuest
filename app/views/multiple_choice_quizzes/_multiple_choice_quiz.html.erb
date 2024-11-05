@@ -1,0 +1,21 @@
+<%= form_with(url: submit_topic_multiple_choice_quiz_path(@topic, @multiple_choice_quiz), method: :post) do |f| %>
+    <%= render 'layouts/heading' do %>
+        <%= @topic.name %>
+    <% end %>
+
+    <% @multiple_choice_quiz.multiple_choice_questions.each do |question| %>
+        <div class="question">
+            <p><%= question.text %></p>
+            <% question.options.split(",").map(&:strip).each do |option| %>
+                <div class="option">
+                    <%= radio_button_tag "multiple_choice_quiz[multiple_choice_questions_attributes][#{question.id}][answer]", option, question.answer == option %>
+                    <%= label_tag "multiple_choice_quiz[multiple_choice_questions_attributes][#{question.id}][answer]", option %>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+
+    <div class="actions">
+        <%= f.submit "Submit Quiz" %>
+    </div>
+<% end %>

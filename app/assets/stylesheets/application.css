@@ -8,7 +8,15 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ html {
+  overflow: hidden;
+  height: 100%;
+}
 
+body {
+  height: 100%;
+  overflow: auto;
+}
 .nav-link.active {
     border-bottom: 4px solid hotpink;
 }
@@ -84,3 +92,58 @@ a {
 background-color: hotpink;
 border-color: hotpink;
 }
+
+.vote-counter {
+    display: inline-block;
+    width: 25px; /* Adjust the width as needed */
+    text-align: center;
+}
+/* Sidebar styles */
+.sidebar {
+    padding-top: 10px;
+  }
+  
+  .sidebar-heading {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    background-color: #f8f9fa;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.25rem;
+  }
+  
+  .sidebar-icon {
+    font-size: 1.5em;
+    color: #ff69b4;
+    margin-left: 8px;
+  }
+  
+  /* Topic item styles */
+  .topic-item {
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .topic-progress {
+    display: inline;
+    white-space: nowrap; /* Prevent text from breaking into two lines */
+    font-size: 0.8em;
+    color: #888; /* Change color to match the text style */
+  }
+  .completed {
+    color: #28a745; /* Green color for completed topics */
+  }
+  .in-progress {
+    color: hotpink; /* Blue color for topics in posts */
+  }
+  
+  /* Main content styles */
+  .main-content {
+    height: 100vh;
+  }
+  
+  .content-placeholder {
+    margin-top: calc(50vh - 1.5em);
+  }
+  
+  

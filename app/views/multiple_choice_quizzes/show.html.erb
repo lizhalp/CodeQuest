@@ -1,0 +1,10 @@
+<turbo-frame id="main-content">
+  <%= render @multiple_choice_quiz %>
+
+  <div>
+    <%= link_to "Edit this multiple choice quiz", edit_topic_multiple_choice_quiz_path(@topic, @multiple_choice_quiz) %> |
+    <%= link_to "Back to multiple choice quizzes", topic_path(@topic) %>
+
+    <%= button_to "Destroy this multiple choice quiz", [@topic, @multiple_choice_quiz], method: :delete %>
+  </div>
+</turbo-frame>

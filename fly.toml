@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for codequest on 2024-10-20T16:04:34-04:00
+# fly.toml app configuration file generated for codequest on 2024-10-26T16:13:42-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -10,7 +10,6 @@ console_command = '/rails/bin/rails console'
 [build]
 
 [env]
-  DATABASE_URL = 'sqlite3:///data/production.sqlite3'
   HTTP_PORT = '8080'
 
 [[mounts]]

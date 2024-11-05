@@ -1,0 +1,26 @@
+<%# app/views/votes/_vote_buttons.html.erb %>
+<% vote = Vote.find_by(user_id: user.id, content_id: content.id) %>
+<turbo-frame id="vote-frame-<%= content.id %>">
+  <div data-controller="vote" data-current-vote="<%= vote ? vote.value : 0 %>">
+    <% upvote_class = vote&.value.to_i > 0 ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up' %>
+    <% downvote_class = vote&.value.to_i < 0 ? 'bi-hand-thumbs-down-fill' : 'bi-hand-thumbs-down' %>
+
+    <i class="<%= upvote_class %> vote-button"
+       data-action="click->vote#cast"
+       data-value="1"
+       data-content-id="<%= content.id %>"
+       data-user-id="<%= user.id %>"
+       style="font-size: 1.2em; color: hotpink;"></i>
+
+    <i class="<%= downvote_class %> vote-button"
+       data-action="click->vote#cast"
+       data-value="-1"
+       data-content-id="<%= content.id %>"
+       data-user-id="<%= user.id %>"
+       style="font-size: 1.2em; color: hotpink;"></i>
+
+    <span class="mx-3 vote-counter fixed-width" data-vote-target="counter" style="font-size: 1.2em; color: hotpink;">
+      <%= Vote.where(content_id: content.id).sum(:value) %>
+    </span>
+  </div>
+</turbo-frame>

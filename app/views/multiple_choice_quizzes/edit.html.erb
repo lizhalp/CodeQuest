@@ -1,0 +1,19 @@
+<% content_for :title, "Editing multiple choice quiz" %>
+
+<turbo-frame id="main-content">
+  <h3 class="d-flex mt-3 justify-content-between align-items-center">
+    Editing multiple choice quiz
+    <%= link_to topic_path(@topic), class: "btn btn-link" do %>
+      <i class="bi bi-x" style="font-size: 2.5em; color: hotpink;"></i>
+    <% end %>
+  </h3>
+
+  <%= render "form", multiple_choice_quiz: @multiple_choice_quiz %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this multiple choice quiz", topic_multiple_choice_quiz_path %> |
+    <%= link_to "Back to multiple choice quizzes", topic_path(@topic) %>
+  </div>
+</turbo-frame>

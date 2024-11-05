@@ -10,6 +10,7 @@
   </div>
   <div class="d-flex align-items-center mb-3">
     <%= form.submit "Sign in", class: "btn btn-primary" %>
+    <%= render 'layouts/oauth_buttons' %>
     <%= link_to "Forgot password?", new_password_path, class: "btn btn-link text-muted ms-2", style: "font-size: smaller; font-style: italic;" %>
   </div>
 <% end %>

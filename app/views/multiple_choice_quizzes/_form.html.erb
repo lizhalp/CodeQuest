@@ -1,0 +1,39 @@
+<div data-controller="multiple-choice-questions">
+  <form id="quiz-form" data-multiple-choice-questions-target="form">
+    <div id="questions" data-multiple-choice-questions-target="questions">
+      <!-- Existing questions will be here -->
+    </div>
+    <template data-multiple-choice-questions-target="template">
+      <div class="nested-fields d-flex align-items-start">
+        <div class="question-number me-2" style="font-size: 1.5em; color: hotpink;">
+          NEW_RECORD.
+        </div>
+        <div class="w-100">
+          <div class="mb-3">
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_text">Question Text</label>
+            <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][text]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_text">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_options">Options (comma-separated)</label>
+            <textarea class="form-control" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][options]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_options"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_answer">Correct Answer</label>
+            <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][answer]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_answer">
+          </div>
+        </div>
+        <div class="ms-3 d-flex align-items-start">
+          <i class="bi bi-trash" style="font-size: 1.5em; color: hotpink;" data-action="click->multiple-choice-questions#removeQuestion"></i>
+        </div>
+      </div>
+    </template>
+    <div class="d-flex justify-content-center mt-3">
+      <button id="add-question" class="btn btn-primary" data-action="click->multiple-choice-questions#addQuestion">
+        Add a question
+      </button>
+      <button type="submit" class="btn btn-primary mx-3">
+        Create Quiz
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,8 @@
+<% content_for :title, "New multiple choice quiz" %>
+
+<turbo-frame id="main-content" data-controller="multiple-choice-questions">
+  <%= render "layouts/heading", closeable: topic_path(@topic) do %>
+    Create <%= @topic.name %> Quiz
+  <% end %>
+  <%= render "form", multiple_choice_quiz: @multiple_choice_quiz %>
+</turbo-frame>

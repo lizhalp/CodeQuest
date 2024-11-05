@@ -1,31 +1,76 @@
-<div id="<%= dom_id topic %>" class="card">
-  <div class="card-header d-flex justify-content-between">
-    <%= link_to topic.name, topic_path(topic), class: 'card-title' %>
-    <%= link_to edit_topic_path(topic) do %>
-      <i class="bi bi-pencil-square" style="font-size: 1.2em; color: hotpink;"></i>
-    <% end %>
-  </div>
-  <div class="card-body">
-    <p class="card-text">This is some sample text for the topic card body. Maybe we could put an image here, or something of that nature.</p>
-    <ul class="list-group list-group-flush">
-      <% topic.contents.each do |content| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <input type="checkbox" class="form-check-input" disabled="true" id="read_<%= content.id %>" <%= completion_checkbox_value content %>>
-          <div class="d-flex align-items-center ms-auto">
-            <% if content.type == 'Article' %>
-              <i class="bi bi-book" style="font-size: 1.2em; color: hotpink; margin-right: 10px;"></i>
-            <% end %>
-            <%= link_to content.title, content_path(content), class: 'text-decoration-none' %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<turbo-frame id="main-content" class="text-muted">
+  <%= render 'layouts/heading', createable: new_topic_content_path(@topic) do "Create #{@topic.name} lesson" end %>
 
-<style>
-  .form-check-input:checked {
-    background-color: hotpink;
-    border-color: hotpink;
-  }
-</style>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Lessons</th>
+        <th scope="col" style="width: 25%; color: hotpink; font-size: 1.0em;"></th>
+        <th scope="col" style="width: 50%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
+        <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% topic.contents.each do |content| %>
+        <tr>
+          <td class="text-center align-middle">
+            <input type="checkbox" disabled="true" id="read_<%= content.id %>" <%= completion_checkbox_value content %> class="me-3 form-check-input">
+          </td>
+          <td class="align-items-center">
+            <div class="d-flex align-items-center">
+              <div>
+                <%= link_to content.title, [content.topic, content], class: "text-decoration-none" %>
+                <div style="font-size: 0.9em;" class="">
+                  By: <%= link_to content.user.username, content.user, class: "text-decoration-none text-muted" %>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="text-start">
+            <% if content.type == 'Article' %>
+              <i class="bi bi-book content-icon" style="font-size: 1.5em; color: hotpink;"></i>
+            <% end %>
+          </td>
+          <td class="text-end">
+            <%= time_ago_in_words(content.updated_at) %> ago
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Quizzes</th>
+        <th scope="col" style="width: 25%; color: hotpink; font-size: 1.0em;"></th>
+        <th scope="col" style="width: 50%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
+        <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% topic.multiple_choice_quizzes.each do |quiz| %>
+        <tr>
+          <% if Current.user.completed? quiz %>
+            <td class="text-center align-middle">
+              <input type="checkbox" disabled="true" id="read_<%= quiz.id %>" checked="true" class="me-3 form-check-input">
+            </td>
+          <% else %>
+            <td class="text-center align-middle">
+              <input type="checkbox" disabled="true" id="read_<%= quiz.id %>" class="me-3 form-check-input">
+            </td>
+          <% end %>
+          <td class="align-items-center">
+            <%= link_to quiz.name, [quiz.topic, quiz], class: "text-decoration-none" %>
+          </td>
+          <td class="text-start align-middle">
+            <i class="bi bi-question-circle content-icon" style="font-size: 1.5em; color: hotpink;"></i>
+          </td>
+          <td class="text-end">
+            <%= time_ago_in_words(quiz.updated_at) %> ago
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</turbo-frame>

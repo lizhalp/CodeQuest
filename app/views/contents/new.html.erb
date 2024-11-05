@@ -1,5 +1,7 @@
 <% content_for :title, "New content" %>
 
-<h1>New content</h1>
-
-<%= render "form", content: @content %>
+<turbo-frame id="main-content">
+    <%= render "layouts/heading", closeable: topic_path(@topic) do "Create #{@topic.name} lesson" end %>
+    <%= render "form", content: @content %>
+    <%= link_to "Create Multiple Choice Quiz", new_topic_multiple_choice_quiz_path(@topic), class: 'btn btn-primary' %>
+</turbo-frame>  

@@ -1,45 +1,54 @@
-# require "application_system_test_case"
+require "application_system_test_case"
 
-# class ContentsTest < ApplicationSystemTestCase
-#   setup do
-#     @content = contents(:one)
-#   end
+class ContentSystemTest < ApplicationSystemTestCase
+  setup do
+    # @content = contents(:one) # Assuming you have a fixture named 'one' for contents
+    # @user = users(:one) # Assuming you have a fixture named 'one' for users
+  end
 
-#   test "visiting the index" do
-#     visit contents_url
-#     assert_selector "h1", text: "Contents"
-#   end
+  test "voting on content" do
+    # visit content_path(@content)
 
-#   test "should create content" do
-#     visit contents_url
-#     click_on "New content"
+    # # Check initial state
+    # assert_selector ".vote-sum", text: "0"
 
-#     fill_in "Content text", with: @content.content_text
-#     fill_in "Title", with: @content.title
-#     fill_in "User", with: @content.user_id
-#     click_on "Create Content"
+    # # Simulate a user voting
+    # find('.vote-button[data-value="1"]').click
 
-#     assert_text "Content was successfully created"
-#     click_on "Back"
-#   end
+    # # Wait for the AJAX request to complete and the page to reload
+    # sleep 1
 
-#   test "should update Content" do
-#     visit content_url(@content)
-#     click_on "Edit this content", match: :first
+    # # Check that the vote sum has increased
+    # assert_selector ".vote-sum", text: "1"
+  end
 
-#     fill_in "Content text", with: @content.content_text
-#     fill_in "Title", with: @content.title
-#     fill_in "User", with: @content.user_id
-#     click_on "Update Content"
+  test "viewing content" do
+    # visit content_path(@content)
 
-#     assert_text "Content was successfully updated"
-#     click_on "Back"
-#   end
+    # # Check that the content title and user are displayed
+    # assert_selector ".card-title", text: @content.title
+    # assert_selector ".card-subtitle", text: "By: #{@content.user.username}"
 
-#   test "should destroy Content" do
-#     visit content_url(@content)
-#     click_on "Destroy this content", match: :first
+    # # Check that the content text is displayed
+    # assert_selector ".card-text", text: @content.content_text
+  end
 
-#     assert_text "Content was successfully destroyed"
-#   end
-# end
+  test "marking content as completed" do
+    # visit content_path(@content)
+
+    # # Check if the "Mark completed" button is visible
+    # assert_selector ".btn-primary", text: "Mark completed"
+
+    # # Simulate marking the content as completed
+    # click_on "Mark completed"
+
+    # # Wait for the page to reload
+    # sleep 1
+
+    # # Check that the "Mark completed" button is no longer visible
+    # assert_no_selector ".btn-primary", text: "Mark completed"
+
+    # # Check that the "Back to Topics" link is visible
+    # assert_selector ".btn-secondary", text: "Back to Topics"
+  end
+end

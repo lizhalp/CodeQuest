@@ -1,5 +1,6 @@
 class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy view ]
+  before_action :set_topic, only: %i[ new create show edit update destroy view ]
 
   # GET /contents/1 or /contents/1.json
   def show
@@ -20,7 +21,7 @@ class ContentsController < ApplicationController
     respond_to do |format|
       if @content.save
         flash[:success] = "Content was successfully created."
-        format.html { redirect_to @content }
+        format.html { redirect_to @content.topic }
         format.json { render :show, status: :created, location: @content }
       else
         flash[:danger] = @content.errors.full_messages.join(", ")
@@ -35,7 +36,7 @@ class ContentsController < ApplicationController
     respond_to do |format|
       if @content.update(content_params)
         flash[:success] = "Content was successfully updated."
-        format.html { redirect_to @content }
+        format.html { redirect_to @content.topic }
         format.json { render :show, status: :ok, location: @content }
       else
         flash[:alert] = @content.errors.full_messages.join(", ")
@@ -66,6 +67,10 @@ class ContentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_content
       @content = Content.find(params.expect(:id))
+    end
+
+    def set_topic
+      @topic = Topic.find(params.expect(:topic_id))
     end
 
     # Only allow a list of trusted parameters through.

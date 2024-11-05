@@ -16,17 +16,9 @@
     <%= form.password_field :password, class: 'form-control', required: true %>
   </div>
 
-  <div class="form-check mb-3">
-    <%= form.check_box :notifications_enabled, class: 'form-check-input' %>
-    <%= form.label :notifications_enabled, class: 'form-check-label' %>
-  </div>
-
-  <div class="form-check mb-3">
-    <%= form.check_box :dark_mode_enabled, class: 'form-check-input' %>
-    <%= form.label :dark_mode_enabled, class: 'form-check-label' %>
-  </div>
-
   <div class="actions">
     <%= form.submit 'Create User', class: 'btn btn-primary' %>
+    <small class="text-muted mx-1"><em>- Or -</em></small>
+    <%= render 'layouts/oauth_buttons' %>
   </div>
 <% end %>

@@ -1,7 +1,9 @@
-<%= render @content %>
+<turbo-frame id="main-content">
+  <%= render @content %>
 
-<% if Current.user.completed_content? @content %>
-  <%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>
-<% else %>
-  <%= button_to "Mark completed", view_content_path(@content), method: :post, class: "btn btn-primary" %>
-<% end %>
+  <% if Current.user.completed_content? @content %>
+    <%= link_to "Back to Topics", topic_path(@topic), class: "btn btn-secondary ms-0" %>
+  <% else %>
+    <%= button_to "Mark completed", view_topic_content_path(@topic, @content), method: :post, class: "btn btn-primary" %>
+  <% end %>
+</turbo-frame>

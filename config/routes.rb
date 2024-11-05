@@ -1,12 +1,24 @@
 Rails.application.routes.draw do
-  resources :contents, except: %i[index] do
-    member do
-      post :view
+  resources :users, except: [ :index ]
+
+  resources :topics do
+    resources :multiple_choice_quizzes, except: [ :index ] do
+      resources :multiple_choice_questions
+
+      member do
+        post :submit
+      end
+    end
+
+    resources :contents, except: %i[index] do
+      member do
+        post :view
+      end
     end
   end
-  resources :users
-  resources :topics
+
   resource :session
+  resources :votes, only: [ :create ]
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -20,6 +32,8 @@ Rails.application.routes.draw do
   #
 
   post "logout" => "sessions#destroy", as: :logout
+
+  get "/auth/:provider/callback", to: "sessions#omniauth"
 
   # Defines the root path route ("/")
   root to: "topics#index"
