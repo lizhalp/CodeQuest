@@ -1,13 +1,8 @@
 <% content_for :title, "New multiple choice quiz" %>
 
-<turbo-frame id="main-content">
-  <h3 style="padding-top: 33px;">Create <%= @topic.name %> Quiz</h3>
-
+<turbo-frame id="main-content" data-controller="multiple-choice-questions">
+  <%= render "layouts/heading", closeable: topic_path(@topic) do %>
+    Create <%= @topic.name %> Quiz
+  <% end %>
   <%= render "form", multiple_choice_quiz: @multiple_choice_quiz %>
-
-  <br>
-
-  <div>
-    <%= link_to "Back to multiple choice quizzes", topic_path(@topic) %>
-  </div>
 </turbo-frame>

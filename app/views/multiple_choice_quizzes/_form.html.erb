@@ -1,92 +1,39 @@
-<%= form_with(model: [@topic, @multiple_choice_quiz], local: true, class: "form w-100") do |form| %>
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="d-flex justify-content-between align-items-center">
-    <h3>Questions</h3>
-    <button type="button" id="add-question" class="btn btn-link p-0" style="font-size: 2.5em; color: hotpink;">
-      <i class="bi bi-plus"></i>
-    </button>
-  </div>
-  <div id="questions">
-    <% question_index = 0 %>
-    <%= form.fields_for :multiple_choice_questions do |question_form| %>
+<div data-controller="multiple-choice-questions">
+  <form id="quiz-form" data-multiple-choice-questions-target="form">
+    <div id="questions" data-multiple-choice-questions-target="questions">
+      <!-- Existing questions will be here -->
+    </div>
+    <template data-multiple-choice-questions-target="template">
       <div class="nested-fields d-flex align-items-start">
         <div class="question-number me-2" style="font-size: 1.5em; color: hotpink;">
-          <%= question_index + 1 %>.
+          NEW_RECORD.
         </div>
         <div class="w-100">
           <div class="mb-3">
-            <%= question_form.label :text, "Question", class: "form-label" %>
-            <%= question_form.text_field :text, class: "form-control" %>
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_text">Question Text</label>
+            <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][text]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_text">
           </div>
           <div class="mb-3">
-            <%= question_form.label :options, "Options (comma-separated)", class: "form-label" %>
-            <%= question_form.text_area :options, class: "form-control" %>
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_options">Options (comma-separated)</label>
+            <textarea class="form-control" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][options]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_options"></textarea>
           </div>
           <div class="mb-3">
-            <%= question_form.label :answer, "Correct Answer", class: "form-label" %>
-            <%= question_form.text_field :answer, class: "form-control" %>
+            <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_answer">Correct Answer</label>
+            <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][NEW_RECORD][answer]" id="multiple_choice_quiz_multiple_choice_questions_attributes_NEW_RECORD_answer">
           </div>
         </div>
-        <div class="d-flex align-items-center ms-2" style="font-size: 1.5em; color: hotpink;">
-          <button type="button" class="btn btn-link p-0 ms-2 remove-question">
-            <i class="bi bi-trash" style="font-size: 1.5em; color: hotpink;"></i>
-          </button>
+        <div class="ms-3 d-flex align-items-start">
+          <i class="bi bi-trash" style="font-size: 1.5em; color: hotpink;" data-action="click->multiple-choice-questions#removeQuestion"></i>
         </div>
       </div>
-    <% end %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.submit class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<script>
-  $(document).ready(function() {
-    $('#add-question').click(function() {
-      var newQuestionIndex = $('#questions .nested-fields').length;
-      var newQuestionFields = `
-        <div class="nested-fields d-flex align-items-start">
-          <div class="question-number me-2" style="font-size: 1.5em; color: hotpink;">
-            ${newQuestionIndex + 1}.
-          </div>
-          <div class="w-100">
-            <div class="mb-3">
-              <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_text">Question Text</label>
-              <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][${newQuestionIndex}][text]" id="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_text">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_options">Options (comma-separated)</label>
-              <textarea class="form-control" name="multiple_choice_quiz[multiple_choice_questions_attributes][${newQuestionIndex}][options]" id="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_options"></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_answer">Correct Answer</label>
-              <input class="form-control" type="text" name="multiple_choice_quiz[multiple_choice_questions_attributes][${newQuestionIndex}][answer]" id="multiple_choice_quiz_multiple_choice_questions_attributes_${newQuestionIndex}_answer">
-            </div>
-          </div>
-          <div class="d-flex align-items-center ms-2" style="font-size: 1.5em; color: hotpink;">
-            <button type="button" class="btn btn-link p-0 ms-2 remove-question">
-              <i class="bi bi-trash" style="font-size: 1.5em; color: hotpink;"></i>
-            </button>
-          </div>
-        </div>
-      `;
-      $('#questions').append(newQuestionFields);
-    });
-
-    $(document).on('click', '.remove-question', function() {
-      $(this).closest('.nested-fields').remove();
-      updateQuestionNumbers();
-    });
-
-    function updateQuestionNumbers() {
-      $('#questions .nested-fields').each(function(index) {
-        $(this).find('.question-number').text((index + 1) + '.');
-      });
-    }
-  });
-</script>
+    </template>
+    <div class="d-flex justify-content-center mt-3">
+      <button id="add-question" class="btn btn-primary" data-action="click->multiple-choice-questions#addQuestion">
+        Add a question
+      </button>
+      <button type="submit" class="btn btn-primary mx-3">
+        Create Quiz
+      </button>
+    </div>
+  </form>
+</div>
