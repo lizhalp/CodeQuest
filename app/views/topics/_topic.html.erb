@@ -43,18 +43,28 @@
     <thead>
       <tr>
         <th scope="col" style="width: 5%; color: hotpink; font-size: 1.0em;">Quizzes</th>
-        <th scope="col" style="width: 75%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
+        <th scope="col" style="width: 25%; color: hotpink; font-size: 1.0em;"></th>
+        <th scope="col" style="width: 50%; color: hotpink; font-size: 1.0em;" class="text-start"></th>
         <th scope="col" style="width: 20%; color: hotpink; font-size: 1.0em;" class="text-end">Updated</th>
       </tr>
     </thead>
     <tbody>
       <% topic.multiple_choice_quizzes.each do |quiz| %>
         <tr>
-          <td class="text-center align-middle">
-            <i class="bi bi-question-circle content-icon" style="font-size: 1.5em; color: hotpink;"></i>
-          </td>
+          <% if Current.user.completed? quiz %>
+            <td class="text-center align-middle">
+              <input type="checkbox" disabled="true" id="read_<%= quiz.id %>" checked="true" class="me-3 form-check-input">
+            </td>
+          <% else %>
+            <td class="text-center align-middle">
+              <input type="checkbox" disabled="true" id="read_<%= quiz.id %>" class="me-3 form-check-input">
+            </td>
+          <% end %>
           <td class="align-items-center">
             <%= link_to quiz.name, [quiz.topic, quiz], class: "text-decoration-none" %>
+          </td>
+          <td class="text-start align-middle">
+            <i class="bi bi-question-circle content-icon" style="font-size: 1.5em; color: hotpink;"></i>
           </td>
           <td class="text-end">
             <%= time_ago_in_words(quiz.updated_at) %> ago

@@ -6,8 +6,22 @@ class User < ApplicationRecord
   validates :email_address, uniqueness: true
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  def completed?(object)
+    completed_content?(object) || completed_quiz?(object)
+  end
+
   def completed_content?(content)
     completions.exists?(content:)
+  end
+
+  def completed_quiz?(quiz)
+    MultipleChoiceQuizAttempt.exists?(user: self, multiple_choice_quiz: quiz)
+  end
+
+  def top_score_on_quiz(quiz)
+    total = quiz.multiple_choice_questions.count
+    correct = MultipleChoiceQuizAttempt.where(user: self, multiple_choice_quiz: quiz).maximum(:score)
+    "#{correct}/#{total}"
   end
 
   def self.from_omniauth(response)

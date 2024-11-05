@@ -1,15 +1,19 @@
-<h3 class="d-flex justify-content-between align-items-center" style="color: lightgray; padding-top: 20px;">
+<h3 class="d-flex justify-content-between align-items-center" style="color: lightgray; padding-top: 20px; border-bottom: 2px solid hotpink;">
   <%= yield %>
   <span>
-    <% if defined?(createable) && createable.present? %>
+    <% if content_for?(:actions) %>
+      <%= yield :actions %>
+    <% else %>
+      <% if defined?(createable) && createable.present? %>
         <%= link_to createable, class: 'ms-3' do %>
-            <i class="bi bi-plus" style="font-size: 1.5em; color: hotpink;"></i>
+          <i class="bi bi-plus" style="font-size: 1.5em; color: hotpink;"></i>
         <% end %>
-    <% end %>
-    <% if defined?(closeable) && closeable.present? %>
+      <% end %>
+      <% if defined?(closeable) && closeable.present? %>
         <%= link_to closeable, class: 'ms-3' do %>
-            <i class="bi bi-x" style="font-size: 1.5em; color: hotpink;"></i>
+          <i class="bi bi-x" style="font-size: 1.5em; color: hotpink;"></i>
         <% end %>
+      <% end %>
     <% end %>
   </span>
 </h3>
