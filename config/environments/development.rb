@@ -40,16 +40,17 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: "smtp.mailtrap.io",
-  #   port: 25,
-  #   domain: "mailtrap.io",
-  #   user_name: Rails.application.credentials.dig(:mailtrap, :username),
-  #   password: Rails.application.credentials.dig(:mailtrap, :password),
-  #   authentication: :cram_md5
-  # }
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'example.com',
+    user_name:            'codequestemailtest@gmail.com',
+    password:             'CS320Test',
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
+  
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

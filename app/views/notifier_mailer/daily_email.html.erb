@@ -1,15 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-        <title>Daily Email</title>
-    </head>
-    <body>
-        <h1>Daily Email</h1>
-        <p>Hello <%= @user.name %>,</p>
-        <p>Here is your daily update:</p>
-        <p>Thank you for staying with us!</p>
-        <p>Best regards,</p>
-        <p>CodeQuest</p>
-    </body>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <title>Daily Practice Reminder - CodeQuest</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .header {
+      font-size: 24px;
+      color: #333;
+    }
+    .content {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Daily Practice Reminder for CodeQuest!</div>
+    <div class="content">
+      <p>Hi there!</p>
+      <p>Don't forget to keep your coding skills sharp by completing today's practice challenge on CodeQuest. Daily practice helps you stay on top of your game and continue building the skills you need for success.</p>
+      <p>Click the button below to get started:</p>
+      <a href="https://codequest.fly.dev/"><img src="<%= @image_url %>" alt="Start Today's Challenge" style="margin-top: 20px; border-radius: 5px; width: 200px; height: auto;"></a>
+      <p>Happy coding,<br>The CodeQuest Team</p>
+    </div>
+  </div>
+</body>
 </html>

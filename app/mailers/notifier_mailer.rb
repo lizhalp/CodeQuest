@@ -1,8 +1,10 @@
 class NotifierMailer < ApplicationMailer
-    def daily_email(user)
-
+    def daily_email(email)
+        Rails.logger.debug "Email received: #{email.inspect} (#{email.class})"
         mail(
-            to: user.email_address, 
-            subject: "CodeQuest Daily Reminder!",
+        to: email, 
+        subject: "CodeQuest Daily Reminder!"
         )
-end
+    end
+  end
+  
