@@ -1,0 +1,30 @@
+.my-4.mx-auto.dark:bg-gray-800.shadow-lg.pl-4{class: "w-11/12" }
+  - left_content = image_tag @course.image, alt: @course.title, class: "h-16 w-16 rounded-full mr-4"
+  - right_content = link_to("Edit", edit_course_path(@course), class: "button-primary mb-2") + link_to('Back to Courses', courses_path, class: "button-secondary mb-2")
+  = render 'header', heading: @course.title, subtitle: "Course by #{@course.user.username}", right_content:, left_content:
+  %p.p-3= @course.description
+  %div.tabnav{ data: { controller: "tabnav" } }
+    .tabnav-tabs
+      %a.tabnav-tab.active{ href: "#table-of-contents", data: { action: "click->tabnav#activate", tabnav_target: "tab" } }
+        .flex
+          = heroicon "book-open", variant: :outline, options: { class: "icon" }
+          Contents
+      %a.tabnav-tab{ href: "#contribute", data: { action: "click->tabnav#activate", tabnav_target: "tab" } }
+        .flex
+          = heroicon "wrench-screwdriver", variant: :outline, options: { class: "icon" }
+          Contributions (Coming soon)
+      %a.tabnav-tab{ href: "#chat", data: { action: "click->tabnav#activate", tabnav_target: "tab" } }
+        .flex
+          = heroicon "chat-bubble-left-right", variant: :outline, options: { class: "icon" }
+          Course Chatroom (Coming soon)
+      %a.tabnav-tab{ href: "#people", data: { action: "click->tabnav#activate", tabnav_target: "tab" } } 
+        .flex
+          = heroicon "users", variant: :outline, options: { class: "icon" }
+          People
+      - if authenticated? && Current.user == @course.user
+        %a.tabnav-tab{ href: "#people", data: { action: "click->tabnav#activate", tabnav_target: "tab" } }
+          .flex
+            = heroicon "cog-6-tooth", variant: :outline, options: { class: "icon" }
+            Settings
+  #contents
+    = render 'chapters/table_of_contents'

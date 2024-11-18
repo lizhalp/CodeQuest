@@ -1,0 +1,23 @@
+= form_with model: @course, local: true do |f|
+  = f.hidden_field :user_id, value: Current.user.id
+  .field
+    = f.label :title
+    = f.text_field :title, class: "form-control"
+  .field
+    = f.label :description
+    = f.textarea :description, class: "form-control"
+  
+  .field
+    = f.label :image, "Cover Image"
+    - if @course.image.attached?
+      %p
+        Current file:
+        = link_to @course.image.filename.to_s, rails_blob_path(@course.image, disposition: "attachment")
+    = f.file_field :image, value: @course.image.filename.to_s, class: "form-control"
+  .field
+    = f.label :public
+    = f.check_box :public
+  .field
+    = f.label :has_chat
+    = f.check_box :has_chat
+  = f.submit 'Save', class: "button-primary w-full mt-2"

@@ -1,0 +1,7 @@
+%div.max-w-2xl.mx-auto.bg-white.dark:bg-gray-800.shadow-md.rounded-lg.p-6.mt-10.border-r-4.border-pink-400.dark:border-pink-400
+  %h1.text-3xl.font-bold.mb-4 Notifications
+  = render partial: "notifications_list", locals: { notifications: @notifications.where(seen: false), title: "unseen notifications" }
+
+  %br
+  %h1.text-2xl.font-bold.mb-4 Saved Notifications
+  = render partial: "notifications_list", locals: { notifications: @notifications.where(seen: true), title: "saved notifications" }

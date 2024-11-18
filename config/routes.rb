@@ -1,26 +1,33 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :contents, except: %i[index] do
-    member do
-      post :view
+  # ----------- Content Management Routes
+  resources :courses
+  resources :chapters, only: %i[create update destroy] do
+    resources :lessons, except: %i[index]
+  end
+  # ----------- Social Routes
+  resources :friend_requests, only: %i[create update destroy]
+  resources :users, only: %i[new create show destroy] do
+    resources :notifications, only: %i[index destroy] do
+      patch :mark_as_read, on: :member
     end
   end
-  resources :users
-  resources :topics
+
+  # ----------- Chat Routes
+  namespace :chat do
+    resources :conversations, only: %i[index show] do
+      resources :messages, only: %i[index create]
+    end
+  end
+
+  # ----------- Authentication Routes
   resource :session
   resources :passwords, param: :token
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get "/auth/:provider/callback", to: "sessions#omniauth"
+  delete "/logout", to: "sessions#destroy"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # ----------- Root Route
+  root "courses#index"
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  #
-
-  post "logout" => "sessions#destroy", as: :logout
-
-  # Defines the root path route ("/")
-  root to: "topics#index"
 end

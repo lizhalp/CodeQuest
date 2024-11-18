@@ -1,0 +1,14 @@
+- outgoing_request = FriendRequest.find_by(sender: Current.user, recipient: @user)
+- incoming_request = FriendRequest.find_by(sender: @user, recipient: Current.user)
+
+- if !outgoing_request && !incoming_request
+  = button_to 'Add Friend', friend_requests_path(friend_request: { sender_id: Current.user.id, recipient_id: @user.id }), method: :post, class: "button-primary mb-2"
+- elsif outgoing_request&.accepted? || incoming_request&.accepted?
+  = button_to 'Remove Friend', friend_request_path(outgoing_request || incoming_request), method: :delete, class: "button-secondary mb-2"
+
+- elsif outgoing_request&.sent_by?(Current.user)
+  = button_to 'Cancel Request', friend_request_path(outgoing_request), method: :delete, class: "button-primary mb-2"
+
+- elsif incoming_request&.sent_to?(Current.user)
+  = button_to 'Reject Friend Request', friend_request_path(incoming_request, friend_request: { accepted: false }), method: :patch, class: "button-secondary mb-2"
+  = button_to 'Accept Friend Request', friend_request_path(incoming_request, friend_request: { accepted: true }), method: :patch, class: "button-primary mb-2"
