@@ -1,7 +1,0 @@
-<%= render @content %>
-
-<% if Current.user.completed_content? @content %>
-  <%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>
-<% else %>
-  <%= button_to "Mark completed", view_content_path(@content), method: :post, class: "btn btn-primary" %>
-<% end %>
