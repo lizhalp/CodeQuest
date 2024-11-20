@@ -3,8 +3,5 @@
     - @course.chapters.order(:number).each do |chapter|
       = render partial: 'chapters/chapter', locals: { chapter: chapter }
 - else
-  %p.p-4.mb-10.mt-20.text-gray-500.place-self-center= "This course is empty. Add a chapter and create some lessons!"
-
-- if authenticated? && Current.user == @course.user
-  .mt-6.mx-3
-    = render 'chapters/form'
+  .mt-4
+    %p.p-3= "Course has no content yet. Go to settings to get started."

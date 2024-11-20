@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   # ----------- Content Management Routes
   resources :courses
-  resources :chapters, only: %i[create update destroy] do
+  resources :chapters, only: %i[create edit update destroy] do
     resources :lessons, except: %i[index]
   end
   # ----------- Social Routes

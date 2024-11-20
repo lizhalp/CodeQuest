@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: %i[update destroy]
+  before_action :set_chapter, only: %i[update destroy edit]
+
+  def edit
+  end
 
   def create
     @chapter = Chapter.create!(chapter_params)
@@ -21,10 +24,10 @@ class ChaptersController < ApplicationController
   private
 
   def set_chapter
-    @chapter = @course.chapters.find(params[:id])
+    @chapter = Chapter.find(params[:id])
   end
 
   def chapter_params
-    params.expect(chapter: [:title, :user_id, :course_id, :number])
+    params.expect(chapter: [ :title, :user_id, :course_id, :number ])
   end
 end
