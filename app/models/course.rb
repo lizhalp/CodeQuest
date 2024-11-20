@@ -8,6 +8,7 @@ class Course < ApplicationRecord
 
   has_many :chapters, dependent: :destroy
   has_many :lessons, dependent: :destroy
+  has_many :tags, as: :taggable, dependent: :destroy
 
   has_one_attached :image
 end
