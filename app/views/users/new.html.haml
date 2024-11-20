@@ -1,0 +1,24 @@
+%div.max-w-4xl.mx-auto.bg-white.dark:bg-gray-800.shadow-md.rounded-lg.p-6.mt-20.border-r-4.border-pink-400.dark:border-pink-400
+  %h2.text-2xl.font-semibold.mb-4.text-gray-900.dark:text-gray-100 Contribute to a computer science learning community
+  %div.flex.flex-col.md:flex-row
+    %div.flex-1
+      = form_with(model: @user, local: true) do |f|
+        .form-group
+          = f.label :username
+          = f.text_field :username
+        .form-group
+          = f.label :email_address
+          = f.email_field :email_address
+        .flex
+          .form-group.mr-8
+            = f.label :password
+            = f.password_field :password
+          .form-group
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation
+        = f.submit "Register", class: "button-primary w-full"
+        = link_to "Log in", new_session_path, class: "button-secondary w-full mt-2"
+    %div.w-px.bg-gray-300.dark:bg-gray-600.md:ml-4
+
+    %div.flex-1.p-4
+      = render "application/oauth_buttons"

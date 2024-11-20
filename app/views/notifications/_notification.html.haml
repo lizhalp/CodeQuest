@@ -1,0 +1,15 @@
+.mb-4.p-4.shadow-xl.bg-gray-100.border-l-4.dark:bg-gray-700.rounded-lg.shadow-inner{ class: notification.seen ? 'border-gray-400' : 'border-pink-400' }
+  .flex.justify-between.items-center
+    .flex-1.mr-4
+      %h2.text-lg.font-bold= notification.title
+      %p.text-sm.mb-4= time_ago_in_words(notification.created_at) + " ago"
+    .flex.mb-6
+      - redirect_button_class = notification.seen ? "button-secondary-small" : "button-primary-small"
+      - unless notification.seen
+        = button_to mark_as_read_user_notification_path(Current.user, notification), method: :patch, class: "button-secondary-small mb-2 ml-2" do
+          = heroicon "archive-box", variant: :outline, options: { class: "icon" }
+        = button_to user_notification_path(Current.user, notification), method: :delete, class: "button-secondary-small ml-2" do
+          = heroicon "trash", variant: :outline, options: { class: "icon" }
+      = link_to notification.redirect_url, class: redirect_button_class + " ml-2" do
+        = heroicon "arrow-up-right", variant: :outline, options: { class: "icon" }
+  %p= notification.message

@@ -1,0 +1,15 @@
+%h2.text-lg.font-semibold.mb-4= "Edit Chapter"
+= form_with(model: @chapter, local: true) do |form|
+  = form.hidden_field :user_id, value: Current.user.id
+  .hidden.field
+    = form.label :course_id
+    = form.text_field :course_id, value: @chapter.course_id
+  .flex.items-end
+    .field.mr-2{ class: "w-4/12" }
+      = form.label :number, "Chapter Number"
+      = form.number_field :number
+    .field{ class: "w-6/12" }
+      = form.label :title, "Chapter Title"
+      = form.text_field :title
+    .field.mb-3.ml-2{ class: "w-2/12" }
+      = form.submit class: "button-primary"

@@ -1,0 +1,11 @@
+= form_with model: [@chapter, @lesson] do |f|
+  = f.hidden_field :chapter_id, value: @chapter.id
+  = f.hidden_field :user_id, value: Current.user.id
+  = f.hidden_field :course_id, value: @chapter.course.id
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.rich_text_area :body, data: { controller: "trix" }
+  .actions
+    = f.submit 'Save', class: "mt-2 button-primary"

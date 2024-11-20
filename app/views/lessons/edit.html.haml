@@ -1,0 +1,9 @@
+.container.p-3.mt-3.mx-auto.bg-white.shadow-xl.rounded.rounded-lg.dark:bg-gray-800.border-r-4.border-pink-400
+  .my-4.mx-auto.dark:bg-gray-800.shadow-lg.pl-2.-pr-2
+    - left_content = image_tag @lesson.chapter.course.image, alt: @lesson.chapter.course.title, class: "h-16 w-16 rounded-full mr-4"
+    - right_content = link_to('Back', course_path(@lesson.chapter.course), class: "button-secondary mb-2")
+    - subtitle = "Chapter #{@lesson.chapter.number}: #{@lesson.chapter.title}"
+    = render 'header', heading: @lesson.chapter.course.title, subtitle:, right_content:, left_content:
+  %h1.text-3xl.font-bold.mb-4.pl-4 Editing lesson for #{@lesson.chapter.title}
+  .mx-auto.pl-4
+    = render 'form'

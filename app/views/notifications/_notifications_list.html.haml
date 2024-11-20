@@ -1,0 +1,5 @@
+- if notifications.empty?
+  %p.text-gray-700.text-center.py-2.dark:text-gray-300.mb-4 No #{title.downcase}
+- else
+  - notifications.each do |notification|
+    = render notification

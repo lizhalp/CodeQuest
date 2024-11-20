@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_16_195712) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -49,21 +49,104 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "completions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "content_id"
+  create_table "chapters", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "number"
+    t.index ["course_id"], name: "index_chapters_on_course_id"
+    t.index ["user_id"], name: "index_chapters_on_user_id"
+  end
+
+  create_table "conversation_participants", force: :cascade do |t|
+    t.integer "conversation_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "pinned"
+    t.string "role"
+    t.datetime "last_read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id", "last_read_at"], name: "idx_on_conversation_id_last_read_at_3b4e916621"
+    t.index ["conversation_id", "user_id"], name: "index_conversation_participants_on_conversation_id_and_user_id", unique: true
+    t.index ["conversation_id"], name: "index_conversation_participants_on_conversation_id"
+    t.index ["user_id", "pinned"], name: "index_conversation_participants_on_user_id_and_pinned"
+    t.index ["user_id"], name: "index_conversation_participants_on_user_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_direct_message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "contents", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "courses", force: :cascade do |t|
     t.string "title"
-    t.text "content_text"
+    t.text "description"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
-    t.integer "topic_id"
+    t.boolean "public", default: true
+    t.boolean "has_chat", default: true
+    t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "recipient_id", null: false
+    t.boolean "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id"
+    t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.integer "chapter_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["chapter_id"], name: "index_lessons_on_chapter_id"
+    t.index ["course_id"], name: "index_lessons_on_course_id"
+    t.index ["user_id"], name: "index_lessons_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "conversation_id", null: false
+    t.integer "user_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id", "created_at"], name: "index_messages_on_conversation_id_and_created_at"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "message"
+    t.boolean "seen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title", default: "Notification"
+    t.string "redirect_url", default: "/"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "read_receipts", force: :cascade do |t|
+    t.integer "message_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id", "user_id"], name: "index_read_receipts_on_message_id_and_user_id", unique: true
+    t.index ["message_id"], name: "index_read_receipts_on_message_id"
+    t.index ["user_id"], name: "index_read_receipts_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -75,25 +158,35 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_21_143847) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "topics", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid"
+    t.string "provider"
+    t.string "image_url"
     t.string "username"
-    t.boolean "notifications_enabled", default: true
-    t.boolean "dark_mode_enabled", default: false
-    t.boolean "is_admin", default: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chapters", "courses"
+  add_foreign_key "chapters", "users"
+  add_foreign_key "conversation_participants", "conversations"
+  add_foreign_key "conversation_participants", "users"
+  add_foreign_key "courses", "users"
+  add_foreign_key "friend_requests", "users", column: "recipient_id"
+  add_foreign_key "friend_requests", "users", column: "sender_id"
+  add_foreign_key "lessons", "chapters"
+  add_foreign_key "lessons", "courses"
+  add_foreign_key "lessons", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "read_receipts", "messages"
+  add_foreign_key "read_receipts", "users"
   add_foreign_key "sessions", "users"
 end

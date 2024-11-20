@@ -1,0 +1,24 @@
+%div.border-r.border-gray-200.dark:border-gray-600{ data: { controller: "sidebar" }, class: "flex" }
+  %aside#collapsible-sidebar.bg-gray-100.dark:bg-gray-800.border-r.dark:border-gray-800{ 
+    class: "w-96 flex flex-col space-y-4 ",
+    data: { "sidebar-target": "sidebarExpanded" }
+  }
+    .flex.p-2.items-center.justify-between.dark:border-gray-700
+      .flex-1.ml-2
+        %h2.text-xl.font-bold.text-gray-800.dark:text-gray-200= heading
+        %p.text-sm.text-gray-500.dark:text-gray-400.mb-4 0 Friends Active Now
+
+      %button.button-secondary-small#toggle-sidebar.text-gray-800.dark:text-gray-200{ 
+        data: { action: "sidebar#toggle" }
+      }
+        = heroicon "chevron-left", variant: :outline, options: { class: "icon" }
+
+    #sidebar-content.flex-grow
+      = yield
+
+  %aside#collapsible-sidebar.bg-gray-100.dark:bg-gray-800.p-4.px-2{ 
+    class: "w-18 flex flex-col space-y-4 ",
+    data: { "sidebar-target": "sidebarCollapsed" }
+  }
+    %button.button-secondary-small#toggle-sidebar-collapsed{ data: { action: "sidebar#toggle" } }
+      = heroicon "chevron-right", variant: :outline, options: { class: "icon" }

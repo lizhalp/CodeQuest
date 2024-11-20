@@ -1,0 +1,8 @@
+.container.p-3.mt-3.mx-auto.bg-white.shadow-xl.rounded.rounded-lg.dark:bg-gray-800.border-r-4.border-pink-400
+  %h1.text-3xl.font-bold.mb-4= "Edit #{@course.title}"
+
+  = render 'form'
+
+  = link_to 'Show', @course
+  \|
+  = link_to 'Back', courses_path

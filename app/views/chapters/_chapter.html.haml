@@ -1,0 +1,18 @@
+.chapter{ "data-controller" => "chapters" }
+  .flex.text-xl.mx-3.my-4.justify-between.border-b.border-gray-700
+    %h2.place-self-start= "#{chapter.number}: #{chapter.title}"
+    .flex.items-center
+      %button.place-self-end.text-gray-300.mb-1{"data-action" => "click->chapters#toggleDropdown", "data-chapters-target": "dropdownDownButton"}
+        = heroicon "chevron-down", variant: :outline, options: { style: "width: 20px; height: 20px;"}
+      %button.hidden.place-self-end.text-gray-300.mb-1{"data-action" => "click->chapters#toggleDropdown", "data-chapters-target": "dropdownUpButton"}
+        = heroicon "chevron-up", variant: :outline, options: { style: "width: 20px; height: 20px;"}
+  .dropdown.hidden.dropdown-content{"data-chapters-target" => "dropdownContent"}
+    .flex.space-x-4.items-center.p-2
+      - if chapter.lessons.any?
+        - chapter.lessons.order(:created_at).each do |lesson|
+          = render lesson
+    .flex.px-2
+      = button_to "Create Lesson", new_chapter_lesson_path(chapter), method: :get, class: "button-primary"
+      - if Current.user == chapter.course.user
+        = button_to "Edit Chapter", edit_chapter_path(chapter), method: :get, class: "button-secondary"
+        = button_to "Delete Chapter", chapter, method: :delete, data: { confirm: "Are you sure?" }, class: "button-secondary"

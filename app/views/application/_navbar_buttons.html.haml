@@ -1,0 +1,15 @@
+- if authenticated?
+  = link_to chat_conversations_path do
+    .button-secondary-small
+      = heroicon "inbox", variant: :outline, options: { class: "icon" }
+      - if Current.user.notifications.unread.any?
+        %span.badge.badge-pink-400
+  = link_to user_path(Current.user), class: "" do
+    - if Current.user.image_url.present?
+      %img{ src: Current.user.image_url, alt: "User Image", class: "h-6 w-6 rounded-full" }
+    - else
+      = heroicon "user-circle", variant: :outline, options: { class: "icon" }
+- else
+  = link_to new_user_path do
+    .button-secondary-small
+      = heroicon "user-plus", variant: :outline, options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }

@@ -1,0 +1,16 @@
+- classes ||= "text-xl font-bold text-gray-800 dark:text-gray-200"
+- left_content ||= nil
+- right_content ||= nil
+- subtitle ||= nil
+
+
+.flex.justify-between.items-center.p-2.border-b.border-gray-200.dark:border-gray-700
+  .flex
+    = left_content
+  .flex-1.mt-1
+    %h1{ class: classes }
+      = heading
+    %p.text-sm.text-gray-500.dark:text-gray-400.mb-4
+      = subtitle
+  .flex
+    = right_content

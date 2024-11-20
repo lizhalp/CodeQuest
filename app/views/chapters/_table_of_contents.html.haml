@@ -1,0 +1,7 @@
+- if @course.chapters.any?
+  .mt-4
+    - @course.chapters.order(:number).each do |chapter|
+      = render partial: 'chapters/chapter', locals: { chapter: chapter }
+- else
+  .mt-4
+    %p.p-3= "Course has no content yet. Go to settings to get started."
