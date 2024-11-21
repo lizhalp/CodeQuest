@@ -5,7 +5,8 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Current.user.conversations.includes(:conversation_participants).order(updated_at: :desc)
-    @current_conversation = @conversations.first
+    @current_conversation = Conversation.find(params[:conversation_id]) if params[:conversation_id]
+    @current_conversation ||= @conversations.first
     @messages = @current_conversation&.messages&.order(:created_at) || []
   end
 
