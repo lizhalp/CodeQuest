@@ -14,6 +14,17 @@ body {
   /* overflow: hidden; */
   overflow-x: hidden;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 pre {
   @apply bg-gray-800 text-gray-300 p-4 rounded overflow-auto;
 }
@@ -28,41 +39,6 @@ html.dark pre {
 
 html.dark code {
   @apply bg-gray-800 text-gray-300;
-}
-/* Animated overlay */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  mix-blend-mode: multiply; /* This creates the "hiding" effect */
-  animation: revealAnimation 5s infinite ease-in-out;
-}
-
-
-@keyframes revealAnimation {
-  0% {
-    clip-path: polygon(0% 0%, 0% 0%, 0% 0%);
-  }
-  25% {
-    clip-path: polygon(0% 0%, 50% 50%, 0% 100%);
-  }
-  50% {
-    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-  }
-  75% {
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%);
-  }
-  100% {
-    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
-  }
-}
-
-.content {
-  position: relative;
-  z-index: 10;
-  color: black;
 }
 
 html.dark body {
