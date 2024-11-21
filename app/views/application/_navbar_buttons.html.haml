@@ -6,7 +6,7 @@
         %span.badge.badge-pink-400
   = link_to user_path(Current.user), class: "" do
     - if Current.user.image_url.present?
-      %img{ src: Current.user.image_url, alt: "User Image", class: "h-6 w-6 rounded-full" }
+      %img{ src: Current.user.image_url, alt: "User Image", class: "h-8 w-8 rounded-full" }
     - else
       = heroicon "user-circle", variant: :outline, options: { class: "icon" }
 - else
