@@ -8,6 +8,6 @@
   - else
     - alert_class = 'border-gray-600 text-gray-700'
   .flex.justify-between.border-t.border-b.px-2.py-2.mb-1(class="#{alert_class} bg-gray-900" role="alert")
-    %span.mt-1= message
-    %button.close(type="button" aria-label="Close" onclick="this.parentElement.style.display='none';" class="ml-4 text-xl font-bold focus:outline-none hover:text-gray-500")
+    %span.ml-5= message
+    %button.mr-5.close(type="button" aria-label="Close" onclick="this.parentElement.style.display='none';" class="ml-4 text-xl font-bold focus:outline-none hover:text-gray-500")
       %span(aria-hidden="true") &times;
