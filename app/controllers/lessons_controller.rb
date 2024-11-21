@@ -65,7 +65,7 @@ class LessonsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_lesson
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.friendly.find(params[:id])
   end
 
   def set_chapter

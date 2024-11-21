@@ -135,6 +135,8 @@ GEM
     ffi (1.17.0-x86_64-linux-musl)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -494,6 +496,7 @@ DEPENDENCIES
   debug
   factory_bot_rails (~> 6.4)
   font-awesome-sass (~> 6.5)
+  friendly_id (~> 5.5)
   haml-rails (~> 2.1)
   heroicon (~> 1.0)
   html2haml (~> 2.3)

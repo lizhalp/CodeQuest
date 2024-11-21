@@ -3,6 +3,9 @@
 class Lesson < ApplicationRecord
   include Votable
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   belongs_to :course
   belongs_to :user
   belongs_to :chapter

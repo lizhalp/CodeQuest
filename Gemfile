@@ -93,3 +93,5 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "font-awesome-sass", "~> 6.5"
 
 gem "heroicon", "~> 1.0"
+
+gem "friendly_id", "~> 5.5"

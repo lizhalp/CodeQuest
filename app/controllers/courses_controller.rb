@@ -64,7 +64,7 @@ class CoursesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_course
-    @course = Course.find(params.expect(:id))
+    @course = Course.friendly.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

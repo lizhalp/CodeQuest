@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_21_203827) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -90,6 +90,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
     t.datetime "updated_at", null: false
     t.boolean "public", default: true
     t.boolean "has_chat", default: true
+    t.string "slug"
+    t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -103,6 +105,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.integer "course_id", null: false
     t.integer "user_id", null: false
@@ -111,8 +124,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
+    t.string "slug"
     t.index ["chapter_id"], name: "index_lessons_on_chapter_id"
     t.index ["course_id"], name: "index_lessons_on_course_id"
+    t.index ["slug"], name: "index_lessons_on_slug", unique: true
     t.index ["user_id"], name: "index_lessons_on_user_id"
   end
 
@@ -176,7 +191,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
     t.string "provider"
     t.string "image_url"
     t.string "username"
+    t.string "slug"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
