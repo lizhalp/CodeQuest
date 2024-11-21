@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_20_210204) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_21_155929) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -180,6 +180,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_210204) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "votable_type", null: false
+    t.integer "votable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "value"
+    t.index ["user_id", "votable_type", "votable_id"], name: "index_votes_on_user_id_and_votable_type_and_votable_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chapters", "courses"
@@ -198,4 +210,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_210204) do
   add_foreign_key "read_receipts", "messages"
   add_foreign_key "read_receipts", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "votes", "users"
 end

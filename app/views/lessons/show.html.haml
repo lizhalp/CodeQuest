@@ -5,8 +5,9 @@
   - subtitle = @lesson.chapter.title
   = render 'header', heading: @lesson.title, subtitle:, right_content:, left_content:
   - if @lesson.tags.any?
-    .my-6.ml-2
+    .flex.justify-between.my-6.ml-2
       = render 'tags/tags', taggable: @lesson
+      = render 'votes/button', voteable: @lesson
   .m-2.text-lg.text-gray-800.dark:text-gray-200
     = @lesson.body
 
