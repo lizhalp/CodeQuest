@@ -5,9 +5,9 @@
   - right_content = (authenticated? && Current.user == @course.user) ? owner_buttons : visitor_buttons
   = render 'header', heading: @course.title, subtitle: "Course by #{@course.user.username}", right_content:, left_content:
   - if @course.tags.any?
-    .flex.justify-between.my-6.ml-2
+    .flex.justify-between.my-3.ml-2
       = render 'tags/tags', taggable: @course
-      = render 'votes/button', voteable: @lesson
+      = render 'votes/button', votable: @course
   %p.p-3
     = @course.description
   %div.tabnav

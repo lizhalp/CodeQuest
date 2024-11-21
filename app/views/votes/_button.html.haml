@@ -1,3 +1,16 @@
-%span.text-xs.font-semibold.mr-2.px-2.py-2.border.border-gray-700.rounded-full
-  = heroicon "hand-thumb-up", variant: :outline, options: { class: "h-4 w-4" }
-  = heroicon "hand-thumb-down", variant: :outline, options: { class: "h-4 w-4" }
+- vote = votable.vote_for(Current.user)
+%span.flex.items-center.justify-between.text-xs.space-x-2.mr-2.-mt-1.px-2.py-2.border.border-gray-700.rounded-full.text-gray-300
+  - unless vote
+    = button_to votes_path(vote: { votable_type: votable.class.name, votable_id: votable.id, value: 1 }),
+        method: :post, remote: true, aria: { label: "Upvote" } do
+      = heroicon "hand-thumb-up", variant: :outline, options: { class: "h-4 w-4" }
+    = button_to votes_path(vote: { votable_type: votable.class.name, votable_id: votable.id, value: -1 }),
+        method: :post, remote: true, aria: { label: "Downvote" } do
+      = heroicon "hand-thumb-down", variant: :outline, options: { class: "h-4 w-4" }
+  - else
+    %p.text-xs= votable.vote_sum
+    = button_to vote_path(vote), method: :delete, remote: true, aria: { label: "Remove vote" } do
+      - if vote.value == 1
+        = heroicon "hand-thumb-up", variant: :solid, options: { class: "h-4 w-4" }
+      - else
+        = heroicon "hand-thumb-down", variant: :solid, options: { class: "h-4 w-4" }
