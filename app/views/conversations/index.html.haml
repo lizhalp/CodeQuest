@@ -4,21 +4,21 @@
     - @conversations.each do |conversation|
       .m-2
         = link_to conversation_path(conversation), class: "flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-pink-200 dark:hover:bg-pink-600 #{'bg-pink-400 text-white' if @current_conversation == conversation}" do
-          - participant = conversation.conversation_participants.reject { |p| p.user == Current.user }.first
-          %img.h-8.w-8.rounded-full{ src: participant.user.image_url || "default-avatar.png", alt: participant.user.username }
-          %span.text-sm.font-medium.text-gray-900.dark:text-gray-200= participant.user.username
+          - participant = conversation.direct_message_recipient(Current.user)
+          %img.h-8.w-8.rounded-full{ src: participant.image_url || "default-avatar.png", alt: participant.username }
+          %span.text-sm.font-medium.text-gray-900.dark:text-gray-200= participant.username
 
 
   / Main Chat Window
   %main.flex.flex-col{ class: "w-full" }
     - if @current_conversation
       / Chat Header
-      - participant = @current_conversation.conversation_participants.reject { |p| p.user == Current.user }.first if @current_conversation
-      - left_content = image_tag participant.user.image_url, alt: participant.user.username, class: "h-16 w-16 rounded-full mr-4" if @current_conversation
+      - participant = @current_conversation.direct_message_recipient(Current.user)
+      - left_content = image_tag participant.image_url, alt: participant.username, class: "h-16 w-16 rounded-full mr-4"
       - classes = "text-xl font-bold text-gray-800 dark:text-gray-200"
-      - heading = participant.user.username if @current_conversation
+      - heading = participant.username
       %div.w-full.dark:bg-gray-800.shadow-lg
-        = render partial: 'header', locals: { left_content:, classes:, heading:, subtitle: "Last seen #{time_ago_in_words(participant.user.last_seen_at)} ago"}
+        = render partial: 'header', locals: { left_content:, classes:, heading:, subtitle: "Last seen #{time_ago_in_words(participant.last_seen_at)} ago"}
 
       / Chat Messages
       %div.flex-1.overflow-y-scroll.p-4.bg-transparent.space-y-4

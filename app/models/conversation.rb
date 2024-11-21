@@ -15,6 +15,10 @@ class Conversation < ApplicationRecord
     conversation_participants.includes(:user).map(&:user)
   end
 
+  def direct_message_recipient(current_user)
+    participants.reject { |participant| participant == current_user }.first
+  end
+
   def self.create_direct_messages(user1, user2)
     conversation = new(title: "Direct message", is_direct_message: true)
     conversation.participants.build(user: user1)

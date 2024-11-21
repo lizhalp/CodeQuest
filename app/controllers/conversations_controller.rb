@@ -4,8 +4,8 @@ class ConversationsController < ApplicationController
   before_action :set_conversation, only: %i[show]
 
   def index
-    @conversations = Current.user.conversations.includes(:conversation_participants)
-    @current_conversation = @conversations.find_by(id: params[:conversation_id]) || @conversations.last
+    @conversations = Current.user.conversations.includes(:conversation_participants).order(updated_at: :desc)
+    @current_conversation = @conversations.first
     @messages = @current_conversation&.messages&.order(:created_at) || []
   end
 
@@ -15,7 +15,7 @@ class ConversationsController < ApplicationController
   private
 
   def set_conversation
-    @conversation = Chat::Conversation.includes(participants: :user).find(params[:id])
+    @conversation = Conversation.find(params[:id])
   end
 
   def conversation_params
