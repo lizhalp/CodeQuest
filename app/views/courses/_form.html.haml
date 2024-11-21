@@ -20,4 +20,15 @@
   .field
     = f.label :has_chat
     = f.check_box :has_chat
+
+  .field
+    = f.label :tags
+    - [@course.tags.length + 1, 5].min.times do |i|
+      = f.fields_for :tags, @course.tags[i] || @course.tags.build do |tag_form|
+        .flex.items-center.space-x-2
+          = tag_form.hidden_field :id
+          = tag_form.text_field :name, class: "form-control"
+          = tag_form.check_box :_destroy, class: "form-checkbox"
+          = tag_form.label :_destroy, "Remove", class: "ml-2"
+
   = f.submit 'Save', class: "button-primary w-full mt-2"

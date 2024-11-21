@@ -28,6 +28,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: "Course was successfully created." }
         format.json { render :show, status: :created, location: @course }
       else
+        flash[:alert] = @course.errors.full_messages.join(", ")
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -41,6 +42,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: "Course was successfully updated." }
         format.json { render :show, status: :ok, location: @course }
       else
+        flash[:alert] = @course.errors.full_messages.join(", ")
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -52,6 +54,7 @@ class CoursesController < ApplicationController
     @course.destroy!
 
     respond_to do |format|
+      flash[:notice] = "Course was successfully destroyed."
       format.html { redirect_to courses_path, status: :see_other, notice: "Course was successfully destroyed." }
       format.json { head :no_content }
     end
@@ -66,6 +69,9 @@ class CoursesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def course_params
-    params.expect(course: [:title, :user_id, :description, :image, :public])
+    params.require(:course).permit(
+      :title, :user_id, :description, :image, :public, :has_chat,
+      tags_attributes: %i[id name _destroy]
+    )
   end
 end

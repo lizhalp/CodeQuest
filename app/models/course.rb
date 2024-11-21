@@ -9,7 +9,7 @@ class Course < ApplicationRecord
   has_many :chapters, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :tags, as: :taggable, dependent: :destroy
-  accepts_nested_attributes_for :tags, allow_destroy: true, limit: 3
+  accepts_nested_attributes_for :tags, allow_destroy: true, limit: 5
 
   has_one_attached :image
 end
