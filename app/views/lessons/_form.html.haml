@@ -7,5 +7,14 @@
     = f.text_field :title
   .field
     = f.rich_text_area :body, data: { controller: "trix" }
+  .field
+    = f.label :tags
+    - [@lesson.tags.length + 1, 5].min.times do |i|
+      = f.fields_for :tags, @lesson.tags[i] || @lesson.tags.build do |tag_form|
+        .flex.items-center.space-x-2
+          = tag_form.hidden_field :id
+          = tag_form.text_field :name, class: "form-control"
+          = tag_form.check_box :_destroy, class: "form-checkbox"
+          = tag_form.label :_destroy, "Remove", class: "ml-2"
   .actions
     = f.submit 'Save', class: "mt-2 button-primary"
