@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :chapters, only: %i[create edit update destroy] do
     resources :lessons, except: %i[index]
   end
+  resources :votes, only: %i[create destroy]
+
   # ----------- Social Routes
   resources :friend_requests, only: %i[create update destroy]
   resources :users, only: %i[new create show destroy] do
