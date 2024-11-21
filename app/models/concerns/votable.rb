@@ -13,7 +13,7 @@ module Votable
     end
 
     def vote_for(user)
-      votes.find_by(user: user)
+      votes.find_by(user:)
     end
   end
 end
