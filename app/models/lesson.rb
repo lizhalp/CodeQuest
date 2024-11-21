@@ -7,6 +7,8 @@ class Lesson < ApplicationRecord
 
   has_rich_text :body
   has_many :tags, as: :taggable, dependent: :destroy
+  has_many :votes, as: :votable, dependent: :destroy
+
   accepts_nested_attributes_for :tags, allow_destroy: true, limit: 3
 
   validates :title, presence: true, length: { maximum: 100 },
