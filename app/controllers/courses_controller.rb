@@ -25,7 +25,8 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: "Course was successfully created." }
+        flash[:success] = "Course was successfully created."
+        format.html { redirect_to @course }
         format.json { render :show, status: :created, location: @course }
       else
         flash[:alert] = @course.errors.full_messages.join(", ")
@@ -39,7 +40,8 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: "Course was successfully updated." }
+        flash[:success] = "Course was successfully updated."
+        format.html { redirect_to @course }
         format.json { render :show, status: :ok, location: @course }
       else
         flash[:alert] = @course.errors.full_messages.join(", ")
@@ -55,7 +57,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = "Course was successfully destroyed."
-      format.html { redirect_to courses_path, status: :see_other, notice: "Course was successfully destroyed." }
+      format.html { redirect_to courses_path, status: :see_other }
       format.json { head :no_content }
     end
   end

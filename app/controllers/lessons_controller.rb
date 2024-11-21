@@ -24,7 +24,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        flash[:notice] = "Lesson was successfully created."
+        flash[:success] = "Lesson was successfully created."
         format.html { redirect_to @lesson.course }
         format.json { render :show, status: :created, location: @lesson }
       else
@@ -39,7 +39,7 @@ class LessonsController < ApplicationController
   def update
     respond_to do |format|
       if @lesson.update(lesson_params)
-        flash[:notice] = "Lesson was successfully updated."
+        flash[:success] = "Lesson was successfully updated."
         format.html { redirect_to @lesson.course }
         format.json { render :show, status: :ok, location: @lesson }
       else
