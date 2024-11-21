@@ -8,7 +8,7 @@
     .message
       %strong= message.user.username
       = message.body
-= form_with url: chat_conversation_messages_path(@conversation), local: true do |f|
+= form_with url: conversation_messages_path(@conversation), local: true do |f|
   .form-group
     = f.text_area :body, placeholder: "Type your message...", class: "message-input", name: "message[body]"
   .form-group

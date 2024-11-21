@@ -1,5 +1,5 @@
 - if authenticated?
-  = link_to chat_conversations_path do
+  = link_to conversations_path do
     .button-secondary-small
       = heroicon "inbox", variant: :outline, options: { class: "icon" }
       - if Current.user.notifications.unread.any?

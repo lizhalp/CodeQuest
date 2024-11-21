@@ -3,8 +3,8 @@
   = render 'collapsible_sidebar', heading: 'Direct Messages' do
     - @conversations.each do |conversation|
       .m-2
-        = link_to chat_conversation_path(conversation), class: "flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-pink-200 dark:hover:bg-pink-600 #{'bg-pink-400 text-white' if @current_conversation == conversation}" do
-          - participant = conversation.participants.reject { |p| p.user == Current.user }.first
+        = link_to conversation_path(conversation), class: "flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-pink-200 dark:hover:bg-pink-600 #{'bg-pink-400 text-white' if @current_conversation == conversation}" do
+          - participant = conversation.conversation_participants.reject { |p| p.user == Current.user }.first
           %img.h-8.w-8.rounded-full{ src: participant.user.image_url || "default-avatar.png", alt: participant.user.username }
           %span.text-sm.font-medium.text-gray-900.dark:text-gray-200= participant.user.username
 
@@ -13,7 +13,7 @@
   %main.flex.flex-col{ class: "w-full" }
     - if @current_conversation
       / Chat Header
-      - participant = @current_conversation.participants.reject { |p| p.user == Current.user }.first if @current_conversation
+      - participant = @current_conversation.conversation_participants.reject { |p| p.user == Current.user }.first if @current_conversation
       - left_content = image_tag participant.user.image_url, alt: participant.user.username, class: "h-16 w-16 rounded-full mr-4" if @current_conversation
       - classes = "text-xl font-bold text-gray-800 dark:text-gray-200"
       - heading = participant.user.username if @current_conversation
@@ -36,4 +36,4 @@
 
       / Message Input
       .bg-gray-100.dark:bg-gray-800.p-4.border-t-2.dark:border-gray-800
-        = render 'chat/messages/form'
+        = render 'messages/form'

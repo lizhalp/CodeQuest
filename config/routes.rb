@@ -15,10 +15,8 @@ Rails.application.routes.draw do
   end
 
   # ----------- Chat Routes
-  namespace :chat do
-    resources :conversations, only: %i[index show] do
-      resources :messages, only: %i[index create]
-    end
+  resources :conversations, only: %i[index show] do
+    resources :messages, only: %i[index create]
   end
 
   # ----------- Authentication Routes

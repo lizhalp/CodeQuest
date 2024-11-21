@@ -15,8 +15,8 @@ class User < ApplicationRecord
     where(friend_requests: { accepted: true })
   }, through: :received_friend_requests, source: :sender
 
-  has_many :chat_conversation_participants, class_name: "Chat::ConversationParticipant", dependent: :destroy
-  has_many :chat_conversations, through: :chat_conversation_participants, source: :conversation
+  has_many :conversation_participants, dependent: :destroy
+  has_many :conversations, through: :conversation_participants
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
