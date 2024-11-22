@@ -1,7 +1,9 @@
 - if @course.chapters.any?
   .mt-4
-    - @course.chapters.order(:number).each do |chapter|
+    - paginated_chapters = @course.chapters.order(:number).page(params[:page])
+    - paginated_chapters.each do |chapter|
       = render partial: 'chapters/chapter', locals: { chapter: chapter }
+    = paginate paginated_chapters
 - else
   .mt-4
     %p.p-3= "Course has no content yet. Go to settings to get started."

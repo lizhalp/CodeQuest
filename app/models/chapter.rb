@@ -10,12 +10,14 @@ class Chapter < ApplicationRecord
 
   before_save :adjust_chapter_numbers, if: :number_changed?
 
+  paginates_per 10
+
   private
 
   def course_chapter_limit
-    return unless course.chapters.count >= 25
+    return unless course.chapters.count >= 30
 
-    errors.add(:course, "cannot have more than 25 chapters")
+    errors.add(:course, "cannot have more than 30 chapters")
   end
 
   def adjust_chapter_numbers
