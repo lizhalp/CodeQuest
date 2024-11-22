@@ -19,7 +19,7 @@
     = render "application/navbar"
     = render "application/flash"
     = yield
-    = render "application/footer" unless controller_name == "conversations"
+    = render "application/footer"
 
     :javascript
       document.addEventListener('DOMContentLoaded', function() {
