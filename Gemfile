@@ -70,7 +70,7 @@ gem "haml-rails", "~> 2.1"
 
 gem "html2haml", "~> 2.3"
 
-gem "rspec-rails", "~> 7.0"
+gem "rspec-rails", "~> 7.1"
 
 gem "factory_bot_rails", "~> 6.4"
 
