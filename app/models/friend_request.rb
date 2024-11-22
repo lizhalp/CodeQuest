@@ -40,7 +40,7 @@ class FriendRequest < ApplicationRecord
   end
 
   def create_direct_message
-    Chat::Conversation.create_direct_messages(sender, recipient)
+    Conversation.create_direct_messages(sender, recipient)
   end
 
   def acceptance_change

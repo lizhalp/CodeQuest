@@ -8,7 +8,7 @@ class Course < ApplicationRecord
 
   has_one_attached :image
 
-  validates :title, presence: true, length: { maximum: 60 }
+  validates :title, presence: true, uniqueness: true, length: { maximum: 60 }
   validates :description, presence: true, length: { maximum: 400 }
   validates :image, presence: true
 

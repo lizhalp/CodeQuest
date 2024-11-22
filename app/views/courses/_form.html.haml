@@ -9,7 +9,7 @@
   
   .field
     = f.label :image, "Cover Image"
-    - if @course.image.attached?
+    - if @course.image.attached? && @course.image.blob.present? && @course.image.blob.persisted?
       %p
         Current file:
         = link_to @course.image.filename.to_s, rails_blob_path(@course.image, disposition: "attachment")

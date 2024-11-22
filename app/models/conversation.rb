@@ -3,7 +3,6 @@
 class Conversation < ApplicationRecord
   has_many :conversation_participants, dependent: :destroy
 
-
   has_many :messages, dependent: :destroy
 
   validates :title, presence: true, if: -> { !is_direct_message }
@@ -21,8 +20,8 @@ class Conversation < ApplicationRecord
 
   def self.create_direct_messages(user1, user2)
     conversation = new(title: "Direct message", is_direct_message: true)
-    conversation.participants.build(user: user1)
-    conversation.participants.build(user: user2)
+    conversation.conversation_participants.build(user: user1)
+    conversation.conversation_participants.build(user: user2)
     conversation.save
   end
 

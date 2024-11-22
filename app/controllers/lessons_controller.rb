@@ -56,7 +56,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = "Lesson was successfully destroyed."
-      format.html { redirect_to @lessson.course, status: :see_other }
+      format.html { redirect_to @chapter.course, status: :see_other }
       format.json { head :no_content }
     end
   end

@@ -9,10 +9,10 @@ class FriendRequestsController < ApplicationController
 
     respond_to do |format|
       if @friend_request.save
-        format.html { redirect_to @friend_request, notice: "Friend request was successfully created." }
+        format.html { redirect_to user_path(@friend_request.recipient), notice: "Friend request was successfully created." }
         format.json { render :show, status: :created, location: @friend_request }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_back_or_to Current.user, status: :unprocessable_entity }
         format.json { render json: @friend_request.errors, status: :unprocessable_entity }
       end
     end
@@ -21,11 +21,11 @@ class FriendRequestsController < ApplicationController
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
     respond_to do |format|
-      if @friend_request.update(friend_request_params)
-        format.html { redirect_to @friend_request, notice: "Friend request was successfully updated." }
+      if Current.user == @friend_request.recipient && @friend_request.update(friend_request_params)
+        format.html { redirect_to user_path(@friend_request.sender), notice: "Friend request was successfully updated." }
         format.json { render :show, status: :ok, location: @friend_request }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_back_or_to Current.user, status: :unprocessable_entity }
         format.json { render json: @friend_request.errors, status: :unprocessable_entity }
       end
     end
@@ -33,12 +33,9 @@ class FriendRequestsController < ApplicationController
 
   # DELETE /friend_requests/1 or /friend_requests/1.json
   def destroy
-    @friend_request.destroy!
-
+    @friend_request.destroy if Current.user == @friend_request.sender
     respond_to do |format|
-      format.html do
-        redirect_to friend_requests_path, status: :see_other, notice: "Friend request was successfully destroyed."
-      end
+      format.html { redirect_to user_path(@friend_request.recipient), status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -47,11 +44,11 @@ class FriendRequestsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_friend_request
-    @friend_request = FriendRequest.find(params.expect(:id))
+    @friend_request = FriendRequest.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def friend_request_params
-    params.expect(friend_request: [:sender_id, :recipient_id, :accepted])
+    params.require(:friend_request).permit(:sender_id, :recipient_id, :accepted)
   end
 end

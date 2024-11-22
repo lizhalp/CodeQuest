@@ -43,7 +43,7 @@
     %p.p-3= "Chat with other students in this course. Coming soon."
   
   #people.tabnav-content.hidden{ data: { tabnav_target: "content" } }
-    %p.p-3= "People who are taking this course. Coming soon."
+    = render 'people'
   
   - if authenticated? && Current.user == @course.user
     #settings.tabnav-content.hidden{ data: { tabnav_target: "content" } }

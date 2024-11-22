@@ -101,3 +101,5 @@ gem "faker", "~> 3.5"
 gem "fake_picture", "~> 0.2.7"
 
 gem "kaminari", "~> 1.2"
+
+gem "simplecov", "~> 0.22.0"
