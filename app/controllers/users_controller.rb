@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       start_new_session_for @user
       redirect_to after_authentication_url
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def user_params

@@ -1,0 +1,8 @@
+.flex.items-center.justify-between.p-3.space-x-2
+  .flex.items-center
+    %p.text-lg Course created by
+    = image_tag @course.user.image_url, class: 'h-8 w-8 rounded-full shadow-xl mr-4'
+    = link_to user_path(@course.user), class: 'text-lg text-gray-300' do
+      #{ @course.user.username }
+  %p.text-xs
+    = @course.created_at.strftime('%B %d, %Y')

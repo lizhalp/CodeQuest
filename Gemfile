@@ -93,3 +93,13 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "font-awesome-sass", "~> 6.5"
 
 gem "heroicon", "~> 1.0"
+
+gem "friendly_id", "~> 5.5"
+
+gem "faker", "~> 3.5"
+
+gem "fake_picture", "~> 0.2.7"
+
+gem "kaminari", "~> 1.2"
+
+gem "simplecov", "~> 0.22.0"

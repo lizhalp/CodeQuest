@@ -1,10 +1,15 @@
-.my-4.py-2.mx-auto.dark:bg-gray-800.shadow-lg.pl-4{class: "w-11/12", data: { controller: "tabnav" } }
+.py-2.mt-1.mb-2.mx-auto.dark:bg-gray-800.shadow-lg.pl-4{class: "w-11/12", data: { controller: "tabnav" } }
   - left_content = image_tag @course.image, alt: @course.title, class: "h-16 w-16 rounded-full mr-4"
   - owner_buttons = link_to("Edit", edit_course_path(@course), class: "button-primary mb-2") + link_to('Back to Courses', courses_path, class: "button-secondary mb-2")
   - visitor_buttons = link_to("Back to Courses", courses_path, class: "button-secondary mb-2")
   - right_content = (authenticated? && Current.user == @course.user) ? owner_buttons : visitor_buttons
   = render 'header', heading: @course.title, subtitle: "Course by #{@course.user.username}", right_content:, left_content:
-  %p.p-3= @course.description
+  %p.p-3
+    = @course.description
+  - if @course.tags.any?
+    .flex.justify-between.my-3.ml-2
+      = render 'tags/tags', taggable: @course
+      = render 'votes/button', votable: @course
   %div.tabnav
     .tabnav-tabs
       %a.tabnav-tab.active{ data: { content: "table-of-contents", action: "click->tabnav#activate", tabnav_target: "tab" } }
@@ -38,7 +43,7 @@
     %p.p-3= "Chat with other students in this course. Coming soon."
   
   #people.tabnav-content.hidden{ data: { tabnav_target: "content" } }
-    %p.p-3= "People who are taking this course. Coming soon."
+    = render 'people'
   
   - if authenticated? && Current.user == @course.user
     #settings.tabnav-content.hidden{ data: { tabnav_target: "content" } }

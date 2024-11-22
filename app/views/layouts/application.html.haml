@@ -16,11 +16,10 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    .overlay
-    .content
-      = render "application/navbar"
-      = render "application/flash"
-      = yield
+    = render "application/navbar"
+    = render "application/flash"
+    = yield
+    = render "application/footer"
 
     :javascript
       document.addEventListener('DOMContentLoaded', function() {
@@ -28,3 +27,4 @@
           document.documentElement.classList.add('dark');
         }
       });
+  

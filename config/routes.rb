@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :chapters, only: %i[create edit update destroy] do
     resources :lessons, except: %i[index]
   end
+  resources :votes, only: %i[create destroy]
+
   # ----------- Social Routes
   resources :friend_requests, only: %i[create update destroy]
   resources :users, only: %i[new create show destroy] do
@@ -15,10 +17,8 @@ Rails.application.routes.draw do
   end
 
   # ----------- Chat Routes
-  namespace :chat do
-    resources :conversations, only: %i[index show] do
-      resources :messages, only: %i[index create]
-    end
+  resources :conversations, only: %i[index show] do
+    resources :messages, only: %i[index create]
   end
 
   # ----------- Authentication Routes

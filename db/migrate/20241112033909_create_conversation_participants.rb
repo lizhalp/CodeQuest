@@ -10,8 +10,8 @@ class CreateConversationParticipants < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :conversation_participants, [:conversation_id, :user_id], unique: true
-    add_index :conversation_participants, [:user_id, :pinned]
-    add_index :conversation_participants, [:conversation_id, :last_read_at]
+    add_index :conversation_participants, [ :conversation_id, :user_id ], unique: true
+    add_index :conversation_participants, [ :user_id, :pinned ]
+    add_index :conversation_participants, [ :conversation_id, :last_read_at ]
   end
 end

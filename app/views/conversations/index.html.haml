@@ -1,0 +1,26 @@
+.flex.overflow-hidden{ style: "height: 94vh;" }
+  = render 'collapsible_sidebar', heading: 'Direct Messages' do
+    = render 'conversations/conversations_list', conversations: @conversations
+
+  / Main Chat Window
+  %main.flex.flex-col{ class: "w-full" }
+    - if @current_conversation
+      / Chat Header
+      - participant = @current_conversation.direct_message_recipient(Current.user)
+      - left_content = image_tag participant.image_url, alt: participant.username, class: "h-16 w-16 rounded-full mr-4"
+      - classes = "text-xl font-bold text-gray-800 dark:text-gray-200"
+      - heading = participant.username
+      .w-full.dark:bg-gray-800.shadow-lg
+        = render partial: 'header', locals: { left_content:, classes:, heading:, subtitle: "Last seen #{time_ago_in_words(participant.last_seen_at)} ago"}
+
+      .flex-1.overflow-y-scroll.p-4.bg-transparent.space-y-4
+        / Message History
+        - if @messages.any?
+          - @messages.each do |message|
+            .flex{class: message.user == Current.user ? 'justify-end' : 'justify-start'}
+              .bg-white.dark:bg-gray-800.rounded-lg.p-3.shadow-md
+                %p.text-sm.text-gray-800.dark:text-gray-200= message.body
+        / Turbo Stream Subscription
+        #messages{"data-controller" => "chat", "data-chat-conversation-id" => @current_conversation.id}
+          = turbo_stream_from "conversation_#{@current_conversation.id}"
+      = render 'messages/send'

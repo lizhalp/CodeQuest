@@ -24,7 +24,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        flash[:notice] = "Lesson was successfully created."
+        flash[:success] = "Lesson was successfully created."
         format.html { redirect_to @lesson.course }
         format.json { render :show, status: :created, location: @lesson }
       else
@@ -39,7 +39,7 @@ class LessonsController < ApplicationController
   def update
     respond_to do |format|
       if @lesson.update(lesson_params)
-        flash[:notice] = "Lesson was successfully updated."
+        flash[:success] = "Lesson was successfully updated."
         format.html { redirect_to @lesson.course }
         format.json { render :show, status: :ok, location: @lesson }
       else
@@ -56,7 +56,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = "Lesson was successfully destroyed."
-      format.html { redirect_to @lessson.course, status: :see_other }
+      format.html { redirect_to @chapter.course, status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -65,7 +65,7 @@ class LessonsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_lesson
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.friendly.find(params[:id])
   end
 
   def set_chapter
@@ -74,6 +74,9 @@ class LessonsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def lesson_params
-    params.require(:lesson).permit(:title, :body, :user_id, :course_id, :chapter_id)
+    params.require(:lesson).permit(
+      :title, :body, :user_id, :course_id, :chapter_id,
+      tags_attributes: %i[id name _destroy]
+    )
   end
 end
