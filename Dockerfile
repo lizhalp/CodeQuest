@@ -22,6 +22,7 @@ RUN apt-get update -qq && \
 # Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
+    SECRET_KEY_BASE="secret" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 

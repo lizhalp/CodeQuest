@@ -1,5 +1,8 @@
 require 'faker'
 
+# Only seed the database in development
+return unless Rails.env.development?
+
 # Create users
 10.times do
   User.find_or_create_by!(email_address: Faker::Internet.unique.email) do |user|
