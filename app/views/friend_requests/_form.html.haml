@@ -10,5 +10,5 @@
   = button_to 'Cancel Request', friend_request_path(outgoing_request), method: :delete, class: "button-primary mb-2"
 
 - elsif incoming_request&.sent_to?(Current.user)
-  = button_to 'Reject Friend Request', friend_request_path(incoming_request, friend_request: { accepted: false }), method: :patch, class: "button-secondary mb-2"
-  = button_to 'Accept Friend Request', friend_request_path(incoming_request, friend_request: { accepted: true }), method: :patch, class: "button-primary mb-2"
+  = button_to 'Reject Friend Request', friend_request_path(incoming_request, friend_request: { accepted: false, sender_id: Current.user.id, recipient_id: @user.id }), method: :patch, class: "button-secondary mb-2"
+  = button_to 'Accept Friend Request', friend_request_path(incoming_request, friend_request: { accepted: true, sender_id: Current.user.id, recipient_id: @user.id }), method: :patch, class: "button-primary mb-2"

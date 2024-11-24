@@ -21,7 +21,7 @@ class FriendRequestsController < ApplicationController
   # PATCH/PUT /friend_requests/1 or /friend_requests/1.json
   def update
     respond_to do |format|
-      if Current.user == @friend_request.recipient && @friend_request.update(friend_request_params)
+      if @friend_request.update(friend_request_params)
         format.html { redirect_to user_path(@friend_request.sender), notice: "Friend request was successfully updated." }
         format.json { render :show, status: :ok, location: @friend_request }
       else
@@ -33,7 +33,7 @@ class FriendRequestsController < ApplicationController
 
   # DELETE /friend_requests/1 or /friend_requests/1.json
   def destroy
-    @friend_request.destroy if Current.user == @friend_request.sender
+    @friend_request.destroy!
     respond_to do |format|
       format.html { redirect_to user_path(@friend_request.recipient), status: :see_other }
       format.json { head :no_content }
