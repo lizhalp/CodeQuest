@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import { cable } from "@hotwired/turbo-rails";
 
 export default class extends Controller {
-  static targets = ["localVideo", "remoteVideoContainer", "joinButton", "leaveButton"];
+  static targets = ["localVideo", "remoteVideoContainer", "joinButton", "leaveButton", "callStatus"];
   static values = { participantId: Number, userId: Number };
 
   connect() {
@@ -11,20 +11,8 @@ export default class extends Controller {
     this.channel = null;
     this.participantChannel = `call_channel_user_${this.participantIdValue}`;
     console.log("VideoCall controller connected");
-  }
-
-  async startCall() {
-    if (!this.channel) {
-      this.channel = await cable.subscribeTo(
-        { channel: "CallChannel", user_id: this.userIdValue },
-        {
-          received: (data) => this.handleSignal(data),
-        }
-      );
-      console.log(`Connected to call_channel_user_${this.userIdValue}`);
-      this.broadcastData({ type: "START_CALL", from: this.userIdValue, to: this.participantIdValue });
-    }
-    this.startStream();
+    console.log("User ID:", this.userIdValue);
+    console.log("Participant ID:", this.participantIdValue);
   }
 
   async startStream() {
@@ -39,12 +27,12 @@ export default class extends Controller {
   async joinCall() {
     if (!this.channel) {
       this.channel = await cable.subscribeTo(
-        { channel: "CallChannel", user_id: this.userIdValue },
+        { channel: "CallChannel", user_id: this.participantIdValue },
         {
           received: (data) => this.handleSignal(data),
         }
       );
-      console.log(`Connected to call_channel_user_${this.userIdValue}`);
+      console.log(`Connected to call_channel_user_${this.participantIdValue}`);
       this.broadcastData({ type: "JOIN_CALL", from: this.userIdValue, to: this.participantIdValue });
     }
     this.startStream();
@@ -63,20 +51,28 @@ export default class extends Controller {
     }
     this.remoteVideoContainerTarget.innerHTML = "";
     this.broadcastData({ type: "LEAVE_CALL", from: this.userIdValue, to: this.participantIdValue });
+    this.updateCallStatus("Call ended");
   }
 
   broadcastData(data) {
     fetch("/calls", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({data: data}),
+      body: JSON.stringify({
+        user_id: this.userIdValue, // Ensure the recipient ID is included
+        data: data
+      }),
     });
   }
 
   handleSignal(data) {
-    if (data.from === this.userIdValue) return;
+    console.log("Received signal:", data);
 
     switch (data.type) {
+      case "START_CALL":
+        this.createPeerConnection(data.from, false);
+        this.updateCallStatus("Call started");
+        break;
       case "JOIN_CALL":
         this.createPeerConnection(data.from, true);
         this.updateCallStatus("Participant joined the call");
@@ -112,9 +108,11 @@ export default class extends Controller {
     };
 
     pc.ontrack = (event) => {
+      console.log("Remote track received:", event.streams[0]);
       const remoteVideo = document.createElement("video");
       remoteVideo.id = `remoteVideo-${userId}`;
       remoteVideo.autoplay = true;
+      remoteVideo.playsInline = true; // Ensure the video plays inline
       remoteVideo.srcObject = event.streams[0];
       this.remoteVideoContainerTarget.appendChild(remoteVideo);
     };
@@ -173,6 +171,7 @@ export default class extends Controller {
       delete this.pcPeers[data.from];
     }
   }
+
   updateCallStatus(status) {
     this.callStatusTarget.textContent = status;
   }

@@ -4,14 +4,13 @@ class CallsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    recipient_id = params[:user_id]
-    ActionCable.server.broadcast("call_channel_user_#{recipient_id}", call_params)
+    ActionCable.server.broadcast("call_channel_user_#{call_params[:to]}", call_params)
     head :ok
   end
 
   private
 
   def call_params
-    params.require(:data).permit(:type, :from, :sdp, :candidate)
+    params.require(:data).permit(:type, :from, :to, :sdp, :candidate)
   end
 end
