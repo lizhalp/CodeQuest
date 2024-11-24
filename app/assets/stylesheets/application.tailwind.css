@@ -295,9 +295,9 @@ svg {
 }
 
 /*  
-    |-------------------------------------|
-    | Tabnav styles                       |
-    |-------------------------------------|
+  |-------------------------------------|
+  | Tabnav styles                       |
+  |-------------------------------------|
 */
 .tabnav {
   @apply border-b-2 mx-2 border-pink-400;
@@ -316,18 +316,31 @@ svg {
 }
 
 .tabnav-tab {
-  @apply py-2 px-4 bg-gray-800 text-sm font-medium text-gray-500 ;
+  @apply hidden;
+  @apply md:flex py-2 px-4 bg-gray-800 text-sm font-medium text-gray-500;
+}
+
+.tabnav-tab-stay {
+  @apply flex py-2 px-4 bg-gray-800 text-sm font-medium text-gray-500;
 }
 
 .tabnav-tab.active {
-  @apply text-gray-400 border-2 border-b-0 border-pink-400 rounded-t-lg -mb-[2px];
+  @apply flex text-gray-400 border-2 border-b-0 border-pink-400 rounded-t-lg -mb-[2px];
 }
 
-.tabnav-tab.right {
-  @apply ml-auto;
+.tabnav-dropdown {
+  @apply md:hidden;
+  @apply sm:absolute z-10 right-0 mt-8 w-56 origin-top-right rounded-md shadow-lg;
 }
 
+.tabnav-dropdown-button .icon {
+  @apply md:hidden;
+  @apply h-6 w-6 text-gray-500;
+}
 
+.tabnav-dropdown-button {
+  @apply md:flex py-2 px-4 bg-gray-800 text-sm font-medium text-gray-500 ml-auto mr-2;
+}
 /*  
     |-------------------------------------|
     | Pagination styles                   |

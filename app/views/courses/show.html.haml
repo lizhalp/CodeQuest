@@ -33,6 +33,10 @@
           .flex
             = heroicon "cog-6-tooth", variant: :outline, options: { class: "icon" }
             Settings
+      %a.tabnav-dropdown-button{ data: { action: "click->tabnav#toggleMenu" } }
+        = heroicon "ellipsis-horizontal", variant: :outline, options: { class: "icon" }
+    
+      
   #table-of-contents.tabnav-content{ data: { tabnav_target: "content" } }
     = render 'chapters/table_of_contents'
   
