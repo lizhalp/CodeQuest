@@ -1,8 +1,20 @@
 import { Controller } from "@hotwired/stimulus";
 import { cable } from "@hotwired/turbo-rails";
 
+// Step 1: Get User Media: Get the user's media stream (video and audio)
+// Step 2: Create Peer Connection: Create a peer connection object for the current user
+//         with the STUN servers.
+// Step 3: Add Tracks: Add the user's media stream tracks to the peer connection object.
+// Step 4: Create Offer: Create an offer to send to the other user.'
+// Step 5: Set Local Description: Set the local description of the peer connection object.
+// Step 6: Broadcast Offer: Broadcast the offer to the other user.
+// Step 7: Handle Exchange: Handle the exchange of SDP and ICE candidates between the users.
+// Step 8: Create Answer: Create an answer to the offer received from the other user.
+// Step 9: Set Remote Description: Set the remote description of the peer connection object.
+
+
 export default class extends Controller {
-  static targets = ["localVideo", "remoteVideoContainer", "joinButton", "leaveButton", "callStatus"];
+  static targets = ["localVideo", "remoteVideo", "joinButton", "startButton", "leaveButton", "callStatus"];
   static values = { participantId: Number, userId: Number };
 
   connect() {
@@ -22,6 +34,20 @@ export default class extends Controller {
     } catch (error) {
       console.error("Error accessing media devices.", error);
     }
+  }
+
+  async startCall() {
+    if (!this.channel) {
+      this.channel = await cable.subscribeTo(
+        { channel: "CallChannel", user_id: this.userIdValue },
+        {
+          received: (data) => this.handleSignal(data),
+        }
+      );
+      console.log(`Connected to call_channel_user_${this.userIdValue}`);
+      this.broadcastData({ type: "START_CALL", from: this.userIdValue, to: this.participantIdValue });
+    }
+    this.startStream();
   }
 
   async joinCall() {
@@ -49,7 +75,7 @@ export default class extends Controller {
       this.channel.unsubscribe();
       this.channel = null;
     }
-    this.remoteVideoContainerTarget.innerHTML = "";
+    this.remoteVideoTarget.innerHTML = "";
     this.broadcastData({ type: "LEAVE_CALL", from: this.userIdValue, to: this.participantIdValue });
     this.updateCallStatus("Call ended");
   }
@@ -89,7 +115,18 @@ export default class extends Controller {
 
   createPeerConnection(userId, offer) {
     const pc = new RTCPeerConnection({
-      iceServers: [{ urls: "stun:stun2.l.google.com:19302" }],
+      iceServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "stun:stun.l.google.com:5349" },
+        { urls: "stun:stun1.l.google.com:3478" },
+        { urls: "stun:stun1.l.google.com:5349" },
+        { urls: "stun:stun2.l.google.com:19302" },
+        { urls: "stun:stun2.l.google.com:5349" },
+        { urls: "stun:stun3.l.google.com:3478" },
+        { urls: "stun:stun3.l.google.com:5349" },
+        { urls: "stun:stun4.l.google.com:19302" },
+        { urls: "stun:stun4.l.google.com:5349" }
+    ],
     });
 
     this.pcPeers[userId] = pc;
@@ -109,17 +146,15 @@ export default class extends Controller {
 
     pc.ontrack = (event) => {
       console.log("Remote track received:", event.streams[0]);
-      const remoteVideo = document.createElement("video");
-      remoteVideo.id = `remoteVideo-${userId}`;
-      remoteVideo.autoplay = true;
-      remoteVideo.playsInline = true; // Ensure the video plays inline
-      remoteVideo.srcObject = event.streams[0];
-      this.remoteVideoContainerTarget.appendChild(remoteVideo);
     };
 
     if (offer) {
       pc.createOffer()
-        .then((offer) => pc.setLocalDescription(offer))
+        .then((offer) => pc.setLocalDescription(offer).then(() => {
+          console.log("Remote SDP set successfully:", offer);
+        }).catch((error) => {
+          console.error("Error setting remote SDP:", error);
+        }))
         .then(() => {
           this.broadcastData({
             type: "EXCHANGE",
