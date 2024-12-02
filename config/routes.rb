@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     resources :messages, only: %i[index create]
   end
 
+  # ----------- Home Routes 
+  resources :courses
+  resources :chapters
+  resources :votes
+  resources :tags
+
   # ----------- Authentication Routes
   resource :session
   resources :passwords, param: :token
