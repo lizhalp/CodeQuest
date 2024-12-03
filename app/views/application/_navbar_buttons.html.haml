@@ -4,6 +4,7 @@
       = heroicon "inbox", variant: :outline, options: { class: "icon" }
       - if Current.user.notifications.unread.any?
         %span.badge.badge-pink-400
+  .border-r.border-gray-600.mx-2.h-8
   = link_to user_path(Current.user) do
     - if Current.user.image_url.present?
       %img{ src: Current.user.image_url, alt: "User Image", class: "h-8 w-8 rounded-full" }
