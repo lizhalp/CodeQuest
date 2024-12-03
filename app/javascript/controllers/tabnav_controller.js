@@ -17,4 +17,9 @@ export default class extends Controller {
     const content_id = event.currentTarget.dataset.content;
     document.getElementById(content_id).classList.remove("hidden");
   }
+
+  toggleMenu() {
+    const menu = this.element.querySelector('[data-tabnav-target="menu"]');
+    menu.classList.toggle('hidden');
+  }
 }

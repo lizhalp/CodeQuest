@@ -13,14 +13,26 @@
       .w-full.dark:bg-gray-800.shadow-lg
         = render partial: 'header', locals: { left_content:, classes:, heading:, subtitle: "Last seen #{time_ago_in_words(participant.last_seen_at)} ago"}
 
-      .flex-1.overflow-y-scroll.p-4.bg-transparent.space-y-4
-        / Message History
-        - if @messages.any?
-          - @messages.each do |message|
-            .flex{class: message.user == Current.user ? 'justify-end' : 'justify-start'}
-              .bg-white.dark:bg-gray-800.rounded-lg.p-3.shadow-md
-                %p.text-sm.text-gray-800.dark:text-gray-200= message.body
-        / Turbo Stream Subscription
-        #messages{"data-controller" => "chat", "data-chat-conversation-id" => @current_conversation.id}
-          = turbo_stream_from "conversation_#{@current_conversation.id}"
-      = render 'messages/send'
+      .flex.flex-col.md:flex-row.flex-1.overflow-hidden
+        / Video Chat Section
+        .w-full.bg-gray-100.dark:bg-gray-900.p-4.flex.flex-col{ "data-controller" => "video-call", "data-video-call-participant-id-value" => participant.id, "data-video-call-user-id-value" => Current.user.id, class: "md:w-3/4" }
+          %div.flex.flex-col.items-center.justify-center.h-full
+            %div{ data: { "video-call-target": "callStatus" }, class: "text-center text-sm text-gray-800 dark:text-gray-200" }
+            %video{ data: { video_call_target: "localVideo" }, autoplay: true, class: "w-full h-1/2 mb-4 rounded-lg" }
+            %div{ data: { video_call_target: "remoteVideo" }, class: "flex-1 overflow-y-auto space-y-4 w-full" }
+            %button{ data: { action: "video-call#startCall" }, class: "bg-blue-500 text-white px-4 py-2 rounded mb-2 w-full" } Start Call
+            %button{ data: { action: "video-call#joinCall" }, class: "bg-green-500 text-white px-4 py-2 rounded mb-2 w-full" } Join Call
+            %button{ data: { action: "video-call#leaveCall" }, class: "bg-red-500 text-white px-4 py-2 rounded w-full" } Leave Call
+        / Message Section
+        .w-full.flex.flex-col.overflow-hidden{ class: ".md:w-1/4" }
+          .flex-1.overflow-y-scroll.p-4.bg-transparent.space-y-4
+            / Message History
+            - if @messages.any?
+              - @messages.each do |message|
+                .flex{class: message.user == Current.user ? 'justify-end' : 'justify-start'}
+                  .bg-white.dark:bg-gray-800.rounded-lg.p-3.shadow-md
+                    %p.text-sm.text-gray-800.dark:text-gray-200= message.body
+            / Turbo Stream Subscription
+            #messages{"data-controller" => "chat", "data-chat-conversation-id" => @current_conversation.id}
+              = turbo_stream_from "conversation_#{@current_conversation.id}"
+          = render 'messages/send'
