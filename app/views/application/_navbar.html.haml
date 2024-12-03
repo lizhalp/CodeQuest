@@ -1,39 +1,13 @@
-%nav.bg-white.border-b.border-shadow-xl.dark:border-gray-700.dark:bg-gray-800.dark:text-white{ "data-controller": "navbar" }
-  .container.mx-auto.px-4.flex.justify-between.items-center
-    .flex.justify-between.items-center
-      %a{ href: root_path }
-        = heroicon "command-line", variant: :outline, options: { class: "w-8 h-8 mr-2 dark:text-pink-400" }
-        %a.md:ml-0.font-bold.text-lg{ href: root_path }
-          CodeBooks
-      .hidden.md:flex
-        %a.flex.items-center.ml-4.text-sm{ href: courses_path }
-          Discover
-        %a.flex.items-center.ml-4.text-sm{ href: new_course_path }
-          Create
-    .flex.items-center.space-y-2.md:space-x-2.py-1.hidden.md:flex
-      .form-group.flex.hidden.md:flex
-        .relative
-          %input{ type: "text", name: "search", class: "block w-full my-2 pl-8 pr-2 py-1 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"}
-          %span.absolute.inset-y-0.left-0.flex.items-center.pl-2.pointer-events-none
-            = heroicon "magnifying-glass", options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }
-      .border-l.border-gray-500.h-8.mx-2.hidden.md:block
-      .button-secondary-small.hidden.md:block{ "data-action": "click->navbar#toggleDarkMode" }
-        = heroicon "sun", variant: :outline, options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }
-      = render "application/navbar_buttons", locals: { class: "hidden md:block" }
-    .md:hidden.relative{ class: "py-2.5"}
-      %button.mt-1{ "data-action": "click->navbar#toggleMenu" }
-        = heroicon "bars-3", options: { class: "w-8 h-8 text-gray-500 dark:text-gray-300" }
-      .absolute.right-0.mt-2.w-48.bg-white.dark:bg-gray-800.shadow-lg.rounded-md.hidden{ "data-navbar-target": "menu" }
-        %a.block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300{ href: courses_path }
-          Discover
-        %a.block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300{ href: new_course_path }
-          Create
-        .form-group.px-4.py-2
-          .relative
-            %input{ type: "text", name: "search", class: "block w-full pl-8 pr-2 py-1 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"}
-            %span.absolute.inset-y-0.left-0.flex.items-center.pl-2.pointer-events-none
-              = heroicon "magnifying-glass", options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }
-        .border-t.border-gray-500.my-2
-        .button-secondary-small{ "data-action": "click->navbar#toggleDarkMode" }
-          = heroicon "sun", variant: :outline, options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }
-        = render "application/navbar_buttons", locals: { class: "" }
+%nav.flex.items-center.justify-between.px-4.py-2.bg-white.border-b.border-shadow-xl.dark:border-gray-700.dark:bg-gray-800.dark:text-white{ "data-controller": "navbar" }
+  %a{ href: root_path }
+    = heroicon "command-line", variant: :outline, options: { class: "w-8 h-8 mr-2 dark:text-pink-400" }
+  %a.font-bold.text-lg{ href: root_path }
+    CodeBooks
+  .hidden.md:flex.ml-4
+    %a.text-sm.ml-4{ href: courses_path }
+      Discover
+    %a.text-sm.ml-4{ href: new_course_path }
+      Create
+  .hidden.md:flex.items-center.ml-auto
+    = render "application/navbar_buttons"
+  = render "application/mobile_dropdown"
