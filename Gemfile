@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0.beta1"
+gem "rails", "~> 8.0.0.rc2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -14,6 +16,8 @@ gem "importmap-rails"
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
+# Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
+gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -21,7 +25,7 @@ gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
@@ -32,7 +36,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", ">= 2.0.0.rc2", require: false
+gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -42,7 +46,7 @@ gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
@@ -61,3 +65,41 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "haml-rails", "~> 2.1"
+
+gem "html2haml", "~> 2.3"
+
+gem "rspec-rails", "~> 7.0"
+
+gem "factory_bot_rails", "~> 6.4"
+
+gem "rubocop-rails", "~> 2.27"
+
+gem "rubocop-rspec", "~> 3.2"
+
+gem "rubocop-capybara", "~> 2.21"
+
+gem "rubocop-factory_bot", "~> 2.26"
+
+gem "rubocop-rspec_rails", "~> 2.30"
+
+gem "omniauth", "~> 2.1"
+
+gem "omniauth-google-oauth2", "~> 1.2"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "font-awesome-sass", "~> 6.5"
+
+gem "heroicon", "~> 1.0"
+
+gem "friendly_id", "~> 5.5"
+
+gem "faker", "~> 3.5"
+
+gem "fake_picture", "~> 0.2.7"
+
+gem "kaminari", "~> 1.2"
+
+gem "simplecov", "~> 0.22.0"

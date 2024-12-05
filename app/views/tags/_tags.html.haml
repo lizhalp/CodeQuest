@@ -1,0 +1,7 @@
+%ul.flex.mb-2
+  %li
+    %span.text-xs.font-bold.mr-2.px-2.py-2
+      Tags:
+  - taggable.tags.each do |tag|
+    %li
+      = render partial: 'tags/tag', locals: { tag: tag }

@@ -1,0 +1,15 @@
+%h1
+  Conversation with 
+  = @conversation.direct_message_recipient(Current.user).username
+
+#messages{"data-controller" => "chat", "data-chat-conversation-id" => @conversation.id}
+  = turbo_stream_from "conversation_#{@conversation.id}"
+  - @conversation.messages.each do |message|
+    .message
+      %strong= message.user.username
+      = message.body
+= form_with url: conversation_messages_path(@conversation), local: true do |f|
+  .form-group
+    = f.text_area :body, placeholder: "Type your message...", class: "message-input", name: "message[body]"
+  .form-group
+    = f.submit "Send", class: "btn btn-primary"

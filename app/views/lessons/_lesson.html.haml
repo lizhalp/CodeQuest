@@ -1,0 +1,11 @@
+.card.bg-white.border-l-2.border-pink-400.dark:bg-gray-700.shadow-xl.rounded-lg.overflow-hidden
+  .card-body.p-4
+    %h5.card-title.text-lg.font-bold.text-gray-900.dark:text-gray-100= link_to lesson.title, chapter_lesson_path(lesson.chapter, lesson)
+    %p.card-text.text-md.text-gray-700.dark:text-gray-300
+      By: 
+      %strong.text-gray-900.dark:text-gray-100= link_to lesson.user.username, lesson.user
+  .card-footer.bg-gray-100.dark:bg-gray-800.p-2.pl-4
+    %small.text-muted.text-gray-500.dark:text-gray-400
+      Updated 
+      = time_ago_in_words(lesson.updated_at)
+      ago.

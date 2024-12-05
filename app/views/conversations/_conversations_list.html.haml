@@ -1,0 +1,5 @@
+- conversations.each do |conversation|
+  = link_to conversations_path, params: { current_conversation: conversation.id }, class: "flex items-center ml-1 mt-2 border-l-4 border-pink-400 space-x-3 px-3 py-2 rounded-md hover:bg-pink-200 dark:hover:bg-pink-600" do
+    - participant = conversation.direct_message_recipient(Current.user)
+    %img.h-8.w-8.rounded-full{ src: participant.image_url || "default-avatar.png", alt: participant.username }
+    %span.text-sm.font-medium.text-gray-900.dark:text-gray-200= participant.username

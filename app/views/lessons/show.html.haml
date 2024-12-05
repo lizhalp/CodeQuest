@@ -1,0 +1,13 @@
+
+.container.mx-auto.p-2.rounded.shadow-lg.bg-white.dark:bg-gray-800{ class: "w-4/5" }
+  - left_content = image_tag @lesson.chapter.course.image, alt: @lesson.chapter.course.title, class: "h-16 w-16 rounded-full mr-4"
+  - right_content = link_to('Back', course_path(@lesson.course), class: "button-secondary mb-2") + link_to('Edit', edit_chapter_lesson_path(@lesson.chapter, @lesson), class: "button-primary mb-2")
+  - subtitle = @lesson.chapter.title
+  = render 'header', heading: @lesson.title, subtitle:, right_content:, left_content:
+  - if @lesson.tags.any?
+    .flex.items-center.justify-between.mt-2
+      = render 'tags/tags', taggable: @lesson
+      = render 'votes/button', votable: @lesson
+  .m-2.text-lg.text-gray-800.dark:text-gray-200
+    = @lesson.body
+

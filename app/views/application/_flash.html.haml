@@ -1,0 +1,13 @@
+- flash.each do |type, message|
+  - if type == 'notice'
+    - alert_class = 'border-blue-600 text-blue-700'
+  - elsif type == 'alert'
+    - alert_class = 'border-red-600 text-red-700'
+  - elsif type == 'success'
+    - alert_class = 'border-green-600 text-green-700'
+  - else
+    - alert_class = 'border-gray-600 text-gray-700'
+  .flex.justify-between.border-t.border-b.px-2.py-2.mb-1(class="#{alert_class} bg-gray-900" role="alert")
+    %span.ml-5= message
+    %button.mr-5.close(type="button" aria-label="Close" onclick="this.parentElement.style.display='none';" class="ml-4 text-xl font-bold focus:outline-none hover:text-gray-500")
+      %span(aria-hidden="true") &times;
