@@ -22,10 +22,7 @@ Rails.application.routes.draw do
   end
 
   # ----------- Home Routes 
-  resources :courses
-  resources :chapters
-  resources :votes
-  resources :tags
+  resources :home, only: %i[index]
 
   # ----------- Authentication Routes
   resource :session
