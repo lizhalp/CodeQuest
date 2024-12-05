@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#omniauth"
   delete "/logout", to: "sessions#destroy"
 
-  # ----------- Rails Routes
-  root "courses#index"
+  # ----------- Root Route
+  root "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
   mount ActionCable.server, at: "/cable"
 end
