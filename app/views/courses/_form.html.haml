@@ -1,34 +1,47 @@
-= form_with model: @course, local: true do |f|
+= form_with model: @course, local: true, multipart: true do |f|
   = f.hidden_field :user_id, value: Current.user.id
-  .field
-    = f.label :title
-    = f.text_field :title, class: "form-control"
-  .field
-    = f.label :description
-    = f.textarea :description, class: "form-control"
-  
-  .field
-    = f.label :image, "Cover Image"
-    - if @course.image.attached? && @course.image.blob.present? && @course.image.blob.persisted?
-      %p
-        Current file:
-        = link_to @course.image.filename.to_s, rails_blob_path(@course.image, disposition: "attachment")
-    = f.file_field :image, value: @course.image.filename.to_s, class: "form-control"
-  .field
-    = f.label :public
-    = f.check_box :public
-  .field
-    = f.label :has_chat
-    = f.check_box :has_chat
+  #course-information{ data: { "multipart-form-target": "step" } }
+    .flex.justify-between
+      %div.w-full.pr-4.border-r.border-gray-600
+        .field
+          = f.label :title
+          = f.text_field :title, class: "form-control"
+        .field
+          = f.label :description
+          = f.textarea :description, class: "form-control", rows: 4
+      %div.w-full.pl-4
+        .field
+          = f.label :image, "Cover Image"
+          - if @course.image.attached? && @course.image.blob.present? && @course.image.blob.persisted?
+            %p
+              Current file:
+              = link_to @course.image.filename.to_s, rails_blob_path(@course.image, disposition: "attachment")
+          = f.file_field :image, class: "form-control"
+    = button_tag "Continue", class: "button-primary w-full mt-4", data: { action: "multipart-form#nextStep" }
 
-  .field
-    = f.label :tags
-    - [@course.tags.length + 1, 5].min.times do |i|
-      = f.fields_for :tags, @course.tags[i] || @course.tags.build do |tag_form|
-        .flex.items-center.space-x-2
-          = tag_form.hidden_field :id
-          = tag_form.text_field :name, class: "form-control"
-          = tag_form.check_box :_destroy, class: "form-checkbox"
-          = tag_form.label :_destroy, "Remove", class: "ml-2"
+  #visibility-settings.hidden{ data: { "multipart-form-target": "step" } }
+    .field
+      = f.label :public
+      = f.check_box :public
+    .field
+      = f.label :has_chat
+      = f.check_box :has_chat
+    = link_to "Back", "#course-information", class: "button-secondary w-full mt-2", data: { action: "multipart-form#previousStep" }
+    = button_tag "Continue", class: "button-primary w-full mt-4", data: { action: "multipart-form#nextStep" }
 
-  = f.submit 'Save', class: "button-primary w-full mt-2"
+  #content.hidden{ data: { "multipart-form-target": "step" } }
+    .field
+      = f.label :tags
+      - [@course.tags.length + 1, 5].min.times do |i|
+        = f.fields_for :tags, @course.tags[i] || @course.tags.build do |tag_form|
+          .flex.items-center.space-x-2
+            = tag_form.hidden_field :id
+            = tag_form.text_field :name, class: "form-control"
+            = tag_form.check_box :_destroy, class: "form-checkbox"
+            = tag_form.label :_destroy, "Remove", class: "ml-2"
+    = link_to "Back", "#visibility-settings", class: "button-secondary w-full mt-2", data: { action: "multipart-form#previousStep" }
+    = button_tag "Continue", class: "button-primary w-full mt-4", data: { action: "multipart-form#nextStep" }
+
+  #review-and-publish.hidden{ data: { "multipart-form-target": "step" } }
+    = link_to "Back", "#content", class: "button-secondary w-full mt-2", data: { action: "multipart-form#previousStep" }
+    = f.submit 'Save', class: "button-primary w-full mt-2"

@@ -4,12 +4,13 @@
       = heroicon "inbox", variant: :outline, options: { class: "icon" }
       - if Current.user.notifications.unread.any?
         %span.badge.badge-pink-400
-  = link_to user_path(Current.user), class: "" do
+  .border-r.border-gray-600.mx-2.h-8
+  = link_to user_path(Current.user) do
     - if Current.user.image_url.present?
       %img{ src: Current.user.image_url, alt: "User Image", class: "h-8 w-8 rounded-full" }
     - else
-      = heroicon "user-circle", variant: :outline, options: { class: "icon" }
+      = heroicon "user-circle", variant: :outline, options: { class: "h-16 w-16" }
 - else
   = link_to new_user_path do
     .button-secondary-small
-      = heroicon "user-plus", variant: :outline, options: { class: "text-gray-400 dark:text-gray-300", style: "width: 16px; height: 16px;" }
+      = heroicon "user-plus", variant: :outline, options: { class: "icon" }

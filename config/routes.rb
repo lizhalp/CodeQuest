@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :conversations, only: %i[index show] do
     resources :messages, only: %i[index create]
   end
+  resources :calls, only: [ :create ]
 
   # ----------- Home Routes 
   resources :home, only: %i[index]
@@ -30,7 +31,8 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#omniauth"
   delete "/logout", to: "sessions#destroy"
 
-  # ----------- Root Route
+  # ----------- Rails Routes
   root "courses#index"
   get "up" => "rails/health#show", as: :rails_health_check
+  mount ActionCable.server, at: "/cable"
 end
