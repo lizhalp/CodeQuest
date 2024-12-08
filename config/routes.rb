@@ -30,4 +30,7 @@ Rails.application.routes.draw do
   # ----------- Root Route
   root "courses#index"
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # ----------- Mailer Routes
+  get 'test_daily_email', to: 'test_email#send_daily_email'
 end

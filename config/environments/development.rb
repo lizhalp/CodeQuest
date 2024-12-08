@@ -40,6 +40,21 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
+  # Enable delivery errors
+  config.action_mailer.raise_delivery_errors = true
+
+  # Use SMTP delivery method
+  config.action_mailer.delivery_method = :smtp
+
+  # SMTP settings
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.mailtrap.io',
+    port: 2525,
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD'],
+    authentication: 'plain'
+  }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
