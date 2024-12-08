@@ -28,5 +28,8 @@ module CodeQuest2
 
     # Configure generators to use RSpec
     config.generators.test_framework = :rspec
+
+    config.active_job.queue_adapter = :sidekiq
+
   end
 end

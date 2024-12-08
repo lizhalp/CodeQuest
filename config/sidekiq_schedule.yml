@@ -1,0 +1,3 @@
+send_daily_emails_job:
+  cron: "0 15 * * *"
+  class: "SendDailyEmailsJob"

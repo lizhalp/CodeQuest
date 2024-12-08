@@ -103,3 +103,9 @@ gem "fake_picture", "~> 0.2.7"
 gem "kaminari", "~> 1.2"
 
 gem "simplecov", "~> 0.22.0"
+
+gem 'sidekiq'
+
+gem 'sidekiq-scheduler'
+
+gem 'dotenv-rails'
