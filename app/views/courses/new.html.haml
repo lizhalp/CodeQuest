@@ -1,13 +1,14 @@
-.container.p-3.mt-3.mx-auto.bg-white.shadow-xl.rounded.rounded-lg.dark:bg-gray-800.border-r-4.border-pink-400
+.container.p-3.mt-3.mx-auto.bg-white.shadow-xl.rounded.rounded-lg.dark:bg-gray-800
   %h1.text-3xl.font-bold.mb-4 Create a course
-  .mb-4.py-2.border-t.border-b.border-gray-600
-    %ul.flex.justify-between
-      %li.step
-        %a.text-pink-400.font-bold{:href => "#step1"} 1: Course Information
-      %li.step
-        %a{:href => "#step2"} 2: Community Settings
-      %li.step
-        %a{:href => "#step3"} 3: Content
-      %li.step
-        %a{:href => "#step4"} 4: Review & Publish
-  = render 'form'
+  %div{ data: { controller: "multipart-form" } }
+    .mb-4.py-2.border-t.border-b.border-gray-600  
+      %ul.flex.justify-between
+        %li.step
+          %a{ data: { "multipart-form-target": "heading" } } 1: Course Information
+        %li.step
+          %a{ data: { "multipart-form-target": "heading" } } 2: Community Settings
+        %li.step
+          %a{ data: { "multipart-form-target": "heading" } } 3: Content
+        %li.step
+          %a{ data: { "multipart-form-target": "heading" } } 4: Review & Publish
+    = render 'form'

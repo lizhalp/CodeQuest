@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   resources :conversations, only: %i[index show] do
     resources :messages, only: %i[index create]
   end
+  resources :calls, only: [ :create ]
+
+  # ----------- Home Routes 
+  resources :home, only: %i[index]
 
   # ----------- Authentication Routes
   resource :session
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   # ----------- Root Route
-  root "courses#index"
+  root "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
+  mount ActionCable.server, at: "/cable"
 end

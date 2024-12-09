@@ -7,4 +7,9 @@ export default class extends Controller {
   toggleDarkMode() {
     document.documentElement.classList.toggle('dark');
   }
+
+  toggleMenu() {
+    const menu = this.element.querySelector('[data-navbar-target="menu"]');
+    menu.classList.toggle('hidden');
+  }
 }
