@@ -1,9 +1,20 @@
-%h1 THis is the home page. We can create HTML tags by prefixing the name of the tag with a percentage %sign 
-%div.text-center We can add classes by prefixing them with a dot. 
-%div#right-text.text-center.text-xl We can add IDs by prefixing them with a pound sign.
+%div.relative
+  %h1.text-4xl.text-pink-400{style: "position: absolute; top: 80px; left: 125px;"} Featured
 
-- if @instance_variable
-  %div= @instance_variable
-- else
-  %div
-    data not found
+.section-container.py-8
+  .relative.overflow-hidden{style: "top: 120px; left: 125px;"}
+    %button.prev-arrow.absolute{style: "left: 0.5rem; top: 50%; transform: translateY(-50%);"} 
+      &larr;
+    %div.carousel.flex.space-x-8.overflow-x-scroll.scroll-smooth.no-scrollbar
+      - @courses.each do |course|
+        .card.flex-shrink-0.bg-white.dark:bg-gray-800.shadow-lg.rounded-lg.transition-transform.transform.hover:scale-105.hover:shadow-xl.w-64.border-r-4.border-pink-400.dark:border-pink-400
+          = image_tag course.image, class: "rounded-t-lg h-40 w-full object-cover"
+          .card-content.p-4
+            %h2.text-lg.font-semibold.text-gray-900.dark:text-gray-100
+              = link_to course.title, course_path(course), class: "hover:underline"
+            %p.text-sm.text-gray-500.dark:text-gray-400.mb-4
+              By: 
+              = link_to course.user.username, user_path(course.user), class: "text-pink-500.dark:text-pink-400"
+            %p.text-xs.text-gray-700.dark:text-gray-300.mt-2= truncate(course.description, length: 100)
+    %button.next-arrow.absolute{style: "right: 0.5rem; top: 50%; transform: translateY(-50%);"} 
+      &rarr;
