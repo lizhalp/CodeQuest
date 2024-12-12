@@ -76,7 +76,7 @@ gem "factory_bot_rails", "~> 6.4"
 
 gem "rubocop-rails", "~> 2.27"
 
-gem "rubocop-rspec", "~> 3.2"
+gem "rubocop-rspec", "~> 3.3"
 
 gem "rubocop-capybara", "~> 2.21"
 
