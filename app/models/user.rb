@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   has_many :conversation_participants, dependent: :destroy
   has_many :conversations, through: :conversation_participants
+  has_many :votes, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
@@ -44,4 +45,21 @@ class User < ApplicationRecord
       u.password = SecureRandom.hex(16)
     end
   end
+
+  def upvoted_tags
+    upvoted_content.flat_map(:votable)
+  end
+
+  def downvoted_tags
+    downvoted_content.flat_map(:votable)
+  end
+
+  def upvoted_content
+    votes.where(value: 1).pluck(:votable)
+  end
+  
+  def downvoted_content
+    votes.where(value: -1).pluck(:votable)
+  end
+
 end
