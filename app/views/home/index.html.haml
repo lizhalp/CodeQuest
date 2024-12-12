@@ -1,0 +1,23 @@
+%div.relative
+  %h1.text-4xl.text-pink-400{style: "position: absolute; top: 80px; left: 125px;"} Featured
+
+.section-container.py-8
+  .relative.overflow-hidden{style: "top: 120px; left: 125px;"}
+    %button.prev-arrow.absolute{style: "left: 0.5rem; top: 50%; transform: translateY(-50%);"} 
+      &larr;
+    %div.carousel.flex.space-x-8.overflow-x-scroll.scroll-smooth.no-scrollbar
+      - @courses.each do |course|
+        .card.flex-shrink-0.bg-white.dark:bg-gray-800.shadow-lg.rounded-lg.transition-transform.transform.hover:scale-105.hover:shadow-xl.w-64.border-r-4.border-pink-400.dark:border-pink-400
+          = image_tag course.image, class: "rounded-t-lg h-40 w-full object-cover"
+          .card-content.p-4
+            %h2.text-lg.font-semibold.text-gray-900.dark:text-gray-100
+              = link_to course.title, course_path(course), class: "hover:underline"
+            %p.text-sm.text-gray-500.dark:text-gray-400.mb-4
+              By: 
+              = link_to course.user.username, user_path(course.user), class: "text-pink-500.dark:text-pink-400"
+            %p.text-xs.text-gray-700.dark:text-gray-300.mt-2= truncate(course.description, length: 100)
+    %button.next-arrow.absolute{style: "right: 0.5rem; top: 50%; transform: translateY(-50%);"} 
+      &rarr;
+
+%div.relative
+  %h1.text-4xl.text-pink-400{style: "position: absolute; top: 150px; left: 125px;"} Recommended
